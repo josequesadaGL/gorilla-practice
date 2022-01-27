@@ -1,0 +1,64 @@
+{
+  "author": "Girma Nigusse <xgirma@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/e2e-boilerplate/cypress-es-modules-chai-should/issues"
+  },
+  "dependencies": {
+    "cypress": "^9.3.1",
+    "rimraf": "3.0.2"
+  },
+  "description": "Cypress end-to-end test automation boilerplate. Using ES Modules, Chai and Should.",
+  "devDependencies": {
+    "eslint": "7.32.0",
+    "eslint-config-airbnb-base": "14.2.1",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-cypress": "2.12.1",
+    "eslint-plugin-import": "2.25.4",
+    "eslint-plugin-prettier": "3.4.1",
+    "husky": "6.0.0",
+    "lint-staged": "10.5.4",
+    "prettier": "2.5.1",
+    "pretty-quick": "3.1.3"
+  },
+  "homepage": "https://github.com/e2e-boilerplate/cypress-es-modules-chai-should#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged --allow-empty"
+    }
+  },
+  "keywords": [
+    "chai",
+    "cypress",
+    "cypress automation",
+    "cypress boilerplate",
+    "cypress example",
+    "es modules",
+    "should",
+    "e2e",
+    "e2e tests",
+    "boilerplate",
+    "integration test",
+    "test automation",
+    "javascript"
+  ],
+  "license": "MIT",
+  "lint-staged": {
+    "*.{js}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "name": "cypress-es-modules-chai-should",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/e2e-boilerplate/cypress-es-modules-chai-should.git"
+  },
+  "scripts": {
+    "clean:screenshots": "npx cypress/screenshots/*",
+    "clean:video": "npx rimraf cypress/videos/*",
+    "lint": "npx eslint --ext .js ./ --fix",
+    "open": "npx cypress open",
+    "test": "npx cypress run"
+  },
+  "version": "1.0.0"
+}
