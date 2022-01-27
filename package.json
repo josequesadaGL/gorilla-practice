@@ -58,7 +58,7 @@
     "clean:video": "npx rimraf cypress/videos/*",
     "lint": "npx eslint --ext .js ./ --fix",
     "open": "npx cypress open",
-    "test": "npx cypress run --headless --browser electron"
+    "test": "npx cypress run --headless --browser firefox"
   },
   "version": "1.0.0"
 }
