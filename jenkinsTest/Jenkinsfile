@@ -1,0 +1,13 @@
+pipeline {
+  agent {
+    label 'jenkinsAgent'
+  }
+
+  stages {
+    stage('Hello') {
+      sh 'java -version'
+      echo "Get working directory"
+      sh 'pwd'
+    }
+  }
+}
