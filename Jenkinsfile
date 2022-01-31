@@ -3,6 +3,7 @@ pipeline {
   triggers{ cron('H/30 * * * *') }
   stages {
     stage('Cypress') {
+      failFast true
       parallel {
         stage('Tester1') {
           agent {
@@ -14,7 +15,7 @@ pipeline {
           }
           steps {
             echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-            sh "npm run test"
+            sh 'npm run test'
           }
         }
         stage('Tester2') {
@@ -27,7 +28,7 @@ pipeline {
           }
           steps {
             echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-            sh "npm run test"
+            sh 'npm run test'
           }
         }
       }
