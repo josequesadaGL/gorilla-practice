@@ -7,7 +7,6 @@ pipeline {
           agent {
             dockerfile {
                 filename 'Dockerfile.JenkinsAgent'
-                dir 'build'
             }
           }
           steps {
@@ -20,7 +19,6 @@ pipeline {
           agent {
             dockerfile {
                 filename 'Dockerfile.JenkinsAgent'
-                dir 'build'
             }
           }
           steps {
