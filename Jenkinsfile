@@ -14,7 +14,6 @@ pipeline {
           }
           steps {
             echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-            echo "location: ${pwd}"
             sh "npm run test"
           }
         }
