@@ -14,7 +14,7 @@ pipeline {
           }
           steps {
             echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-            sh 'google-chrome -version'
+            sh 'npm run test'
           }
         }
         stage('Tester2') {
@@ -27,7 +27,7 @@ pipeline {
           }
           steps {
             echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-            sh 'google-chrome -version'
+            sh 'npm run test'
           }
         }
       }
