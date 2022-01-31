@@ -31,3 +31,6 @@ WORKDIR /gorilla-practice/
 
 # Install project dependencies
 RUN npm install
+
+RUN chown -R 1000 /var/jenkins_home/
+USER jenkins
