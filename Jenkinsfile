@@ -14,7 +14,7 @@ pipeline {
             dockerfile {
                 filename 'Dockerfile.JenkinsAgent'
                 dir 'build'
-                label 'agent1'
+                // label 'agent1'
             }
           }
           steps {
@@ -28,7 +28,7 @@ pipeline {
             dockerfile {
                 filename 'Dockerfile.JenkinsAgent'
                 dir 'build'
-                label 'agent2'
+                // label 'agent2'
             }
           }
           steps {
