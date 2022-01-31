@@ -31,4 +31,3 @@ WORKDIR /gorilla-practice/
 
 # Install project dependencies
 RUN npm install
-RUN $(npm bin)/cypress verify
