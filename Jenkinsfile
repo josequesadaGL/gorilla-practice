@@ -1,5 +1,6 @@
 pipeline {
   agent none
+  triggers{ cron('H/30 * * * *') }
   stages {
     stage('Cypress') {
       parallel {
