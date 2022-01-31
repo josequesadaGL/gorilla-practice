@@ -1,16 +1,41 @@
 pipeline {
   agent none
   stages {
-    stage('Build') {
-      agent {
-        dockerfile {
-          label 'jenkinsAgent'
+    stage('Cypress') {
+      // steps {
+        // echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
+        // sh 'apt install ./google-chrome-stable_current_amd64.deb -y'
+        // sh 'google-chrome —version'
+      // }
+    
+      parallel {
+        stage('Tester1') {
+          agent {
+            dockerfile {
+                filename 'Dockerfile.JenkinsAgent'
+                dir 'build'
+                label 'agent1'
+            }
+          }
+          steps {
+            echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
+            sh 'google-chrome —version'
+          }
         }
-      }
-      steps {
-        echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-        sh 'apt install ./google-chrome-stable_current_amd64.deb -y'
-        sh 'google-chrome —version'
+
+        stage('Tester2') {
+          agent {
+            dockerfile {
+                filename 'Dockerfile.JenkinsAgent'
+                dir 'build'
+                label 'agent2'
+            }
+          }
+          steps {
+            echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
+            sh 'google-chrome —version'
+          }
+        }
       }
     }
   }
