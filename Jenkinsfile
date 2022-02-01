@@ -3,7 +3,6 @@ pipeline {
   stages {
     stage('Cypress') {
       failFast true
-      when{ branch 'main' }
       parallel {
         stage('Tester1') {
           agent {
