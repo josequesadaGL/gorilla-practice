@@ -9,7 +9,7 @@ pipeline {
             dockerfile {
               filename 'Dockerfile.JenkinsAgent'
               dir 'build'
-              args '-v /var/run/docker.sock:/var/run/docker.sock -v /var/jenkins_home'
+              args '-v /var/run/docker.sock:/var/run/docker.sock -v /var/jenkins_home:/var/jenkins_home -v /var/docker/jenkins/jenkins:/var/jenkins'
             }
 
           }
