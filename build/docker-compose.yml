@@ -6,7 +6,6 @@ services:
     user: root
     environment:
       JAVA_OPTS: -Djenkins.install.runSetupWizard=false 
-      JENKINS_JAVA_OPTIONS: -org.jenkinsci.plugins.durabletask.BourneShellScript.LAUNCH_DIAGNOSTICS=true
       JENKINS_OPTS: --argumentsRealm.roles.user=admin --argumentsRealm.passwd.admin=admin --argumentsRealm.roles.admin=admin
     ports:
       - "9090:8080"
