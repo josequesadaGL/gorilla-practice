@@ -25,6 +25,7 @@ RUN apt-get install -y \
       xauth \
       xvfb
 
+RUN sudo setfacl --modify user:1000:rw /var/run/docker.sock
 # RUN systemctl unmask docker
 # Run systemctl start docker
 
