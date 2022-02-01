@@ -14,7 +14,7 @@ pipeline {
 
           }
           steps {
-            dir(path: '../../gorilla-practice')
+            dir(path: '/../../gorilla-practice/')
             sh 'pwd'
             echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
             sh 'npm run test'
