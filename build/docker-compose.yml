@@ -6,7 +6,10 @@ services:
     user: root
     environment:
       JAVA_OPTS: -Djenkins.install.runSetupWizard=false 
-      JENKINS_OPTS: --argumentsRealm.roles.user=admin --argumentsRealm.passwd.admin=admin --argumentsRealm.roles.admin=admin
+      JENKINS_ADMIN_ID: admin
+      JENKINS_ADMIN_PASSWORD: admin
+      JENKINS_SERVER_URL: http://localhost:9090/
+      # JENKINS_OPTS: --argumentsRealm.roles.user=admin --argumentsRealm.passwd.admin=admin --argumentsRealm.roles.admin=admin
     ports:
       - "9090:8080"
       - "50000:50000"

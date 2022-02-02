@@ -3,8 +3,8 @@ jenkins:
     local:
       allowsSignup: false
       users:
-       - id: admin
-         password: admin
+       - id: ${JENKINS_ADMIN_ID}
+         password: ${JENKINS_ADMIN_PASSWORD}
 unclassified:
   location:
-    url: http://localhost:9090/
+    url: ${JENKINS_SERVER_URL}
