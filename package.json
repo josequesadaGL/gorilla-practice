@@ -1,7 +1,7 @@
 {
-  "author": "Girma Nigusse <xgirma@gmail.com>",
+  "author": "Jose Quesada jose.quesada@gorillalogic.com",
   "bugs": {
-    "url": "https://github.com/e2e-boilerplate/cypress-es-modules-chai-should/issues"
+    "url": "https://github.com/josequesadaGL/gorilla-practice.git"
   },
   "dependencies": {
     "cypress": "^9.3.1",
@@ -9,6 +9,7 @@
   },
   "description": "Cypress end-to-end test automation boilerplate. Using ES Modules, Chai and Should.",
   "devDependencies": {
+    "cypress-multi-reporters": "^1.5.0",
     "eslint": "7.32.0",
     "eslint-config-airbnb-base": "14.2.1",
     "eslint-config-prettier": "8.3.0",
@@ -16,11 +17,17 @@
     "eslint-plugin-import": "2.25.4",
     "eslint-plugin-prettier": "3.4.1",
     "husky": "6.0.0",
+    "junit-merge": "^2.0.0",
     "lint-staged": "10.5.4",
+    "mocha": "^9.2.0",
+    "mocha-junit-reporter": "^2.0.2",
+    "mochawesome": "^7.0.1",
+    "mochawesome-merge": "^4.2.1",
+    "mochawesome-report-generator": "^6.0.1",
     "prettier": "2.5.1",
     "pretty-quick": "3.1.3"
   },
-  "homepage": "https://github.com/e2e-boilerplate/cypress-es-modules-chai-should#readme",
+  "homepage": "https://github.com/josequesadaGL/gorilla-practice",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged --allow-empty"
@@ -51,14 +58,20 @@
   "name": "cypress-es-modules-chai-should",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/e2e-boilerplate/cypress-es-modules-chai-should.git"
+    "url": "git+https://github.com/josequesadaGL/gorilla-practice.git"
   },
   "scripts": {
+    "delete:reports": "rm -r cypress/results/* || true",
+    "prereport": "npm run delete:reports",
+    "report": "cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json",
+    "mochawesome:merge": "npx mochawesome-merge \"cypress/results/mochawesome/*.json\" > mochawesome.json && npx marge mochawesome.json",
+    "junit:merge": "npx junit-merge -d cypress/results/junit -o cypress/results/junit/result.xml",
     "clean:screenshots": "npx cypress/screenshots/*",
     "clean:video": "npx rimraf cypress/videos/*",
     "lint": "npx eslint --ext .js ./ --fix",
-    "open": "npx cypress open",
-    "test": "npx cypress run --headless --browser chrome"
+    "cypress:gui": "npx cypress open",
+    "cypress:run": "npm run prereport && npx cypress run --headless --browser chrome",
+    "cypress:test": "npm run cypress:run; npm run mochawesome:merge; npm run junit:merge"
   },
   "version": "1.0.0"
 }

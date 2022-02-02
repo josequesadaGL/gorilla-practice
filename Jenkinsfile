@@ -1,7 +1,8 @@
 pipeline {
   agent none
+  tools { npm }
   stages {
-    stage('Cypress') {
+    stage('Build') {
       failFast true
       parallel {
         stage('Tester1') {

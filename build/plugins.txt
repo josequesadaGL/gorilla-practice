@@ -1,6 +1,7 @@
 ant:1.13
 apache-httpcomponents-client-4-api:4.5.13-1.0
 authentication-tokens:1.4
+authorize-project:1.4.0
 blueocean-autofavorite:1.2.4
 cloudbees-bitbucket-branch-source:751.vda_24678a_f781
 blueocean-bitbucket-pipeline:1.25.2

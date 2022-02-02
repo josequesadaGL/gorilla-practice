@@ -105,3 +105,8 @@ dist
 
 # Docker
 /docker/
+
+# Reports
+cypress/results/
+cypress/videos/
+mochawesome-report/
