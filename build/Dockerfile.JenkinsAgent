@@ -25,9 +25,9 @@ RUN apt-get install -y \
       xauth \
       xvfb
 
-RUN sudo setfacl --modify user:jenkins:rw /var/run/docker.sock
-# RUN systemctl unmask docker
-# Run systemctl start docker
+RUN setfacl --modify user:jenkins:rw /var/run/docker.sock
+RUN systemctl unmask docker
+RUN systemctl start docker
 
 # Checkout repo
 # RUN git clone https://github.com/josequesadaGL/gorilla-practice.git
