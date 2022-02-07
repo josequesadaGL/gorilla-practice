@@ -106,7 +106,12 @@ dist
 # Docker
 /docker/
 
+# Idea
+/.idea/
+
 # Reports
 cypress/results/
 cypress/videos/
+cypress/screenshots/
 mochawesome-report/
+mochawesome.json
