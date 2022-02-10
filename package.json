@@ -66,7 +66,7 @@
     "report": "cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json",
     "mochawesome:merge": "npx mochawesome-merge \"cypress/results/mochawesome/*.json\" > mochawesome.json && npx marge mochawesome.json",
     "junit:merge": "npx junit-merge -d cypress/results/junit -o cypress/results/junit/result.xml",
-    "clean:screenshots": "npx cypress/screenshots/*",
+    "clean:screenshots": "npx rimraf cypress/screenshots/*",
     "clean:video": "npx rimraf cypress/videos/*",
     "lint": "npx eslint --ext .js ./ --fix",
     "cypress:gui": "npx cypress open",

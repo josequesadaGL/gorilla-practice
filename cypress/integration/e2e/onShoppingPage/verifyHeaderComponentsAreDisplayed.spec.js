@@ -1,4 +1,4 @@
-import ShopPage from '../../support/pages/shop'
+import ShopPage from '../../../support/pages/shop'
 
 describe("Validate Site information and expected components", () => {
   before(() => {

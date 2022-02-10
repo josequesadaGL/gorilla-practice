@@ -4,5 +4,9 @@
     "reporter": "cypress-multi-reporters",
     "reporterOptions": {
         "configFile": "reporter-config.json"
+    },
+    "env": {
+        "ADMIN_USER": "admin",
+        "ADMIN_PASS": "admin"
     }
 }

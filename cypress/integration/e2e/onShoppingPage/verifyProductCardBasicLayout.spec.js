@@ -1,4 +1,4 @@
-import ShopPage from '../../support/pages/shop'
+import ShopPage from '../../../support/pages/shop'
 
 describe("Verify card layout for any product", () => {
   before(() => {

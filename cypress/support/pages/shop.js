@@ -47,10 +47,13 @@ class ShopPage extends BasePage {
     }
 
     getSideCart() {
-        return cy.get(directory.cartContainer)
-            .should('be.visible')
+        return cy.get(directory.cartLoadingOverlay)
+        .should('not.exist', {timeout: 3000})
+        .then(()=>{
+            return cy.get(directory.cartContainer)
+                .should('be.visible')
+        })
     }
-
 
     // *** Actions *** //
     addFirstPurchasableProductToCart() {
@@ -66,7 +69,8 @@ class ShopPage extends BasePage {
             cy.wrap(productContainer)
             .find(directory.buttonComponent)
             .click()
-            .wait(1000) // Wait for component transition
+            .get(directory.cartContainer, {timeout: 3000})
+            .should('be.visible')
             .then(() => {
                 this.validateProductInCart( {
                     name: productInfo.name,
@@ -137,7 +141,6 @@ class ShopPage extends BasePage {
         return cy.get(directory.sortingDropdown)
         .select(option)
     }
-
 
     // *** Validations *** //
     validateCartIsEmpty() {

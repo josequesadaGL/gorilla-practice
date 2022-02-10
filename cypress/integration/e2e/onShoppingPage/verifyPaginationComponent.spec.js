@@ -1,4 +1,4 @@
-import ShopPage from '../../support/pages/shop'
+import ShopPage from '../../../support/pages/shop'
 
 describe("Validate shop pagination shows when products surpass 12 items	v", () => {
   before(() => {

@@ -27,3 +27,7 @@
 Cypress.Commands.add('openHomePage', () => {
     cy.visit('/')
 })
+
+Cypress.Commands.add('getNumbersFromText', (text) => {
+    return parseInt(text.replace( /^\D+/g, ''))
+})
