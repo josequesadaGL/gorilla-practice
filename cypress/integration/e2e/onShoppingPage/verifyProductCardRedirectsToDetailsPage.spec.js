@@ -1,5 +1,5 @@
-import ShopPage from '../../support/pages/shop'
-import ProductPage from '../../support/pages/product'
+import ShopPage from '../../../support/pages/shop'
+import ProductPage from '../../../support/pages/product'
 
 describe("Verify that user can access a product's details by clicking the product card", () => {
   before(() => {

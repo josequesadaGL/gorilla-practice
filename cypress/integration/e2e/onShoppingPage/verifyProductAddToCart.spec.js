@@ -1,4 +1,4 @@
-import ShopPage from '../../support/pages/shop'
+import ShopPage from '../../../support/pages/shop'
 
 describe("Verify that user can add products to their cart using the Add to Cart button", () => {
   before(() => {

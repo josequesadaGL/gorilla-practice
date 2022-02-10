@@ -1,5 +1,5 @@
-import ShopPage from '../../support/pages/shop'
-import directory from '../../support/pages/directories/shop'
+import ShopPage from '../../../support/pages/shop'
+import directory from '../../../support/pages/directories/shop'
 
 describe("Verify that user can sort products by price Ascending", () => {
   before(() => {

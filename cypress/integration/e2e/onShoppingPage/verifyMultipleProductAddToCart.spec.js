@@ -1,4 +1,4 @@
-import ShopPage from '../../support/pages/shop'
+import ShopPage from '../../../support/pages/shop'
 
 describe("Verify that user can add a product to cart multiple times using the Add to Cart button", () => {
   before(() => {
@@ -11,7 +11,7 @@ describe("Verify that user can add a product to cart multiple times using the Ad
       ShopPage.closeSideCart()
     })
     .then(() => {
-      ShopPage.getFirstProductByLabel()
+      ShopPage.getFirstPurchasableProduct()
         .then( product => {
           ShopPage.addProductToCart(product, 2)
         })

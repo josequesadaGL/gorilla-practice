@@ -1,5 +1,5 @@
-import ShopPage from '../../support/pages/shop'
-import CartPage from '../../support/pages/cart'
+import ShopPage from '../../../support/pages/shop'
+import CartPage from '../../../support/pages/cart'
 
 describe("Verify that user can remove items from their cart", () => {
   before(() => {
