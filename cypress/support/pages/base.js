@@ -1,4 +1,3 @@
-import ActionHelper from '../../helpers/actions'
 import directory from './directories/shop'
 
 export default class BasePage {

@@ -1,0 +1,6 @@
+
+{
+    "customers": "/wp-json/wc/v2/customers",
+    "products": "/wp-json/wc/v2/products",
+    "productTags": "/wp-json/wc/v2/products/tags"
+}

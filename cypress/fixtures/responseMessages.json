@@ -1,0 +1,9 @@
+
+{
+    "missingEmail": "Missing parameter(s): email",
+    "missingName": "Missing parameter(s): name",
+    "cannotView": "Sorry, you cannot list resources.",
+    "resourceNotExist": "Resource does not exist.",
+    "thrashUnsupported": "Customers do not support trashing.",
+    "termExists": "A term with the name provided already exists in this taxonomy."
+}

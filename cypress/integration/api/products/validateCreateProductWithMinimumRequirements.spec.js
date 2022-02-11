@@ -1,12 +1,16 @@
-import endpoints from "../../../support/endpoints"
-import {PRODUCT} from "../../../config/constants"
 
-describe("Validate Products can be created when providing required fields", () => {
-  let productId
+describe("Validate create products with required fields", () => {
+  let apiEndpoints, testProduct, productId
+
+  before(()=>{
+    cy.fixture('apiEndpoints.json').then(endpoints => {apiEndpoints = endpoints})
+    cy.fixture('testProduct.json').then(product => {testProduct = product})
+  })
+
   it("Should send a Customer POST request with required fields", () => {
     cy.request({
       method: 'POST',
-      url: endpoints.products,
+      url: apiEndpoints.products,
       auth:
       {                                                              
         username: 'auto',
@@ -16,9 +20,9 @@ describe("Validate Products can be created when providing required fields", () =
     .then(response =>{
         expect(response.status).to.equal(201)
         expect(response.body.id).to.be.a('number')
-        expect(response.body.name).to.equal(PRODUCT.name)
-        expect(response.body.slug).to.contain(PRODUCT.slug)
-        expect(response.body.permalink).to.contain(PRODUCT.slug)
+        expect(response.body.name).to.equal(testProduct.name)
+        expect(response.body.slug).to.contain(testProduct.slug)
+        expect(response.body.permalink).to.contain(testProduct.slug)
 
         productId = response.body.id
       })
@@ -27,7 +31,7 @@ describe("Validate Products can be created when providing required fields", () =
   it ("Should delete the test data", () => {
     cy.request({
       method: 'DELETE',
-      url: `${endpoints.products}/${productId}`,
+      url: `${apiEndpoints.products}/${productId}`,
       auth:
       {
         username: 'auto',

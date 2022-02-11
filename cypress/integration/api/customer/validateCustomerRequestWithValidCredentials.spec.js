@@ -1,11 +1,13 @@
-import endpoints from "../../../support/endpoints"
 
 describe("Validate that only registered users should be able to access the API", () => {
-
+  let apiEndpoints
+  before(()=>{
+    cy.fixture('apiEndpoints.json').then(endpoints => {apiEndpoints = endpoints})
+  })
   it("Should send a request to the API without providing authentication", () => {
      cy.request({
       method: 'GET',
-      url: endpoints.customers,
+      url: apiEndpoints.customers,
       auth:
       {
         username: 'auto',

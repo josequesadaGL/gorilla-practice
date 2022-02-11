@@ -1,15 +1,19 @@
-import endpoints from "../../../support/endpoints"
-import {PRODUCT} from "../../../config/constants"
 
 describe("Validate partially updating product tags", () => {
-  let productTagId
+  let apiEndpoints, testProduct, productTagId
+  
+  before(()=>{
+    cy.fixture('apiEndpoints.json').then(endpoints => {apiEndpoints = endpoints})
+    cy.fixture('testProduct.json').then(product => {testProduct = product})
+  })
+
   it("Should create a new product tag", () => {
     const bodyRequest = {
-      "name": PRODUCT.tag
+      "name": testProduct.tag
     }
     cy.request({
       method: 'POST',
-      url: endpoints.productTags,
+      url: apiEndpoints.productTags,
       auth:
       {
         username: 'auto',
@@ -21,8 +25,8 @@ describe("Validate partially updating product tags", () => {
         expect(response.status).to.equal(201)
         expect(response.body.id).to.be.a('number')
         expect(response.body.description).to.be.a('string')
-        expect(response.body.name).to.equal(PRODUCT.tag)
-        expect(response.body.slug).to.equal(PRODUCT.tag)
+        expect(response.body.name).to.equal(testProduct.tag)
+        expect(response.body.slug).to.equal(testProduct.tag)
 
         productTagId = response.body.id
       })
@@ -31,12 +35,12 @@ describe("Validate partially updating product tags", () => {
   it ("Should be able to update an existing product tag's information", () => {
     const testSlug = "updated_slug"
     const bodyRequest = {
-      "description": PRODUCT.description,
+      "description": testProduct.description,
       "slug": testSlug,
     }
     cy.request({
       method: 'PUT',
-      url: `${endpoints.productTags}/${productTagId}`,
+      url: `${apiEndpoints.productTags}/${productTagId}`,
       auth:
       {
         username: 'auto',
@@ -47,16 +51,16 @@ describe("Validate partially updating product tags", () => {
     .then(response =>{
         expect(response.status).to.equal(200)
         expect(response.body.id).to.equal(productTagId)
-        expect(response.body.name).to.equal(PRODUCT.tag)
+        expect(response.body.name).to.equal(testProduct.tag)
         expect(response.body.slug).to.equal(testSlug)
-        expect(response.body.description).to.equal(PRODUCT.description)
+        expect(response.body.description).to.equal(testProduct.description)
       })
   })
 
   it ("Should delete the test data", () => {
     cy.request({
       method: 'DELETE',
-      url: `${endpoints.productTags}/${productTagId}`,
+      url: `${apiEndpoints.productTags}/${productTagId}`,
       auth:
       {
         username: 'auto',
