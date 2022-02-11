@@ -1,5 +1,5 @@
 
-describe("Validate tags with the same name cannot be created", () => {
+describe("Validate Product Tags with the same name cannot be created", () => {
   let apiEndpoints, responseCodes, responseMessages, testProduct, productTagId, bodyRequest
 
   before(()=>{
@@ -12,15 +12,10 @@ describe("Validate tags with the same name cannot be created", () => {
     cy.fixture('responseMessages.json').then(messages => {responseMessages = messages})
   })
 
-  it("Should send a testProduct Tag POST request with required fields", () => {
-    cy.request({
+  it("Should send a Product Tag POST request with required fields", () => {
+    cy.generateRequest({
       method: 'POST',
-      url: apiEndpoints.productTags,
-      auth:
-      {
-        username: 'auto',
-        password: 'auto',
-      },
+      endpoint: apiEndpoints.productTags,
       body: bodyRequest
     })
     .then(response =>{
@@ -34,16 +29,11 @@ describe("Validate tags with the same name cannot be created", () => {
       })
   })
 
-  it("Should try to send a testProduct Tag POST request with same body data", () => {
-    cy.request({
+  it("Should try to send a Product Tag POST request with same body data", () => {
+    cy.generateRequest({
       method: 'POST',
-      url: apiEndpoints.productTags,
-      failOnStatusCode: false,
-      auth:
-      {
-        username: 'auto',
-        password: 'auto',
-      },
+      endpoint: apiEndpoints.productTags,
+      negative: true,
       body: bodyRequest
     })
     .then(response =>{
@@ -54,17 +44,10 @@ describe("Validate tags with the same name cannot be created", () => {
   })
 
   it ("Should delete the test data", () => {
-    cy.request({
+    cy.generateRequest({
       method: 'DELETE',
-      url: `${apiEndpoints.productTags}/${productTagId}`,
-      auth:
-      {
-        username: 'auto',
-        password: 'auto',
-      },
-      qs: {
-        force: true,
-      }
+      endpoint: `${apiEndpoints.productTags}/${productTagId}`,
+      force: true,
     })
     .then(response =>{
       expect(response.status).to.equal(200)

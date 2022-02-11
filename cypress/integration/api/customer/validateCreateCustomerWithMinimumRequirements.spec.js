@@ -1,5 +1,5 @@
 
-describe("Validate customers are created when providing required fields", () => {
+describe("Validate Customers are created when providing required fields", () => {
   let apiEndpoints, testUser, customerId
 
   before(()=>{
@@ -11,14 +11,9 @@ describe("Validate customers are created when providing required fields", () => 
     const bodyRequest = {
       "email": testUser.email
     }
-    cy.request({
+    cy.generateRequest({
       method: 'POST',
-      url: apiEndpoints.customers,
-      auth:
-      {
-        username: 'auto',
-        password: 'auto',
-      },
+      endpoint: apiEndpoints.customers,
       body: bodyRequest
     })
     .then(response =>{
@@ -37,15 +32,10 @@ describe("Validate customers are created when providing required fields", () => 
   })
 
   it ("Should delete the test data", () => {
-    cy.request({
+    cy.generateRequest({
       method: 'DELETE',
-      url: `${apiEndpoints.customers}/${customerId}`,
-      auth:
-      {
-        username: 'auto',
-        password: 'auto',
-      },
-      qs: {
+      endpoint: `${apiEndpoints.customers}/${customerId}`,
+      force: {
         force: true,
       }
     })

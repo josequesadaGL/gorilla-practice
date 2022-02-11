@@ -11,14 +11,9 @@ describe("Validate create product tag with required fields", () => {
     const bodyRequest = {
       "name": testProduct.tag
     }
-    cy.request({
+    cy.generateRequest({
       method: 'POST',
-      url: apiEndpoints.productTags,
-      auth:
-      {
-        username: 'auto',
-        password: 'auto',
-      },
+      endpoint: apiEndpoints.productTags,
       body: bodyRequest
     })
     .then(response =>{
@@ -33,17 +28,10 @@ describe("Validate create product tag with required fields", () => {
   })
 
   it ("Should delete the test data", () => {
-    cy.request({
+    cy.generateRequest({
       method: 'DELETE',
-      url: `${apiEndpoints.productTags}/${productTagId}`,
-      auth:
-      {
-        username: 'auto',
-        password: 'auto',
-      },
-      qs: {
-        force: true,
-      }
+      endpoint: `${apiEndpoints.productTags}/${productTagId}`,
+      force: true,
     })
     .then(response =>{
       expect(response.status).to.equal(200)

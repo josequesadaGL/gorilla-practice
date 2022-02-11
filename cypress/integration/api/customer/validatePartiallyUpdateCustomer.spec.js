@@ -7,18 +7,13 @@ describe("Validate partially updating customers", () => {
     cy.fixture('testUser.json').then(user => {testUser = user})
   })
   
-  it("Should create a new customer", () => {
+  it("Should create a new Customer", () => {
     const bodyRequest = {
       "email": testUser.email
     }
-    cy.request({
+    cy.generateRequest({
       method: 'POST',
-      url: apiEndpoints.customers,
-      auth:
-      {
-        username: 'auto',
-        password: 'auto',
-      },
+      endpoint: apiEndpoints.customers,
       body: bodyRequest
     })
     .then(response =>{
@@ -36,19 +31,14 @@ describe("Validate partially updating customers", () => {
       })
   })
 
-  it ("Should be able to update an existing customer's information", () => {
+  it ("Should be able to update an existing Customer's information", () => {
     const bodyRequest = {
       "first_name": testUser.firstName,
       "last_name": testUser.lastName
     }
-    cy.request({
+    cy.generateRequest({
       method: 'PUT',
-      url: `${apiEndpoints.customers}/${customerId}`,
-      auth:
-      {
-        username: 'auto',
-        password: 'auto',
-      },
+      endpoint: `${apiEndpoints.customers}/${customerId}`,
       body: bodyRequest
     })
     .then(response =>{
@@ -66,17 +56,10 @@ describe("Validate partially updating customers", () => {
   })
 
   it ("Should delete the test data", () => {
-    cy.request({
+    cy.generateRequest({
       method: 'DELETE',
-      url: `${apiEndpoints.customers}/${customerId}`,
-      auth:
-      {
-        username: 'auto',
-        password: 'auto',
-      },
-      qs: {
-        force: true,
-      }
+      endpoint: `${apiEndpoints.customers}/${customerId}`,
+      force: true,
     })
     .then(response =>{
       expect(response.status).to.equal(200)

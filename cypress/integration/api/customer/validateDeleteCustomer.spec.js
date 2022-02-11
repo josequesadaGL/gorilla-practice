@@ -11,14 +11,9 @@ describe("Validate customers can be deleted", () => {
     const bodyRequest = {
       "email": testUser.email
     }
-    cy.request({
+    cy.generateRequest({
       method: 'POST',
-      url: apiEndpoints.customers,
-      auth:
-      {
-        username: 'auto',
-        password: 'auto',
-      },
+      endpoint: apiEndpoints.customers,
       body: bodyRequest
     })
     .then(response =>{
@@ -36,18 +31,11 @@ describe("Validate customers can be deleted", () => {
       })
   })
 
-  it ("Should delte a customer by sending a DELETE request", () => {
-    cy.request({
+  it ("Should delte a Customer by sending a DELETE request", () => {
+    cy.generateRequest({
       method: 'DELETE',
-      url: `${apiEndpoints.customers}/${customerId}`,
-      auth:
-      {
-        username: 'auto',
-        password: 'auto',
-      },
-      qs: {
-        force: true,
-      }
+      endpoint: `${apiEndpoints.customers}/${customerId}`,
+      force: true,
     })
     .then(response =>{
       expect(response.status).to.equal(200)
@@ -56,16 +44,11 @@ describe("Validate customers can be deleted", () => {
     })
   })
 
-  it ("Should validate customer does not exist", () => {
-    cy.request({
+  it ("Should validate Customer does not exist", () => {
+    cy.generateRequest({
       method: 'GET',
-      url: `${apiEndpoints.customers}/${customerId}`,
-      failOnStatusCode: false,
-      auth:
-      {
-        username: 'auto',
-        password: 'auto',
-      }
+      endpoint: `${apiEndpoints.customers}/${customerId}`,
+      negative: true,
     })
     .then(response =>{
       expect(response.status).to.equal(404)

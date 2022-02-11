@@ -11,14 +11,9 @@ describe("Validate partially updating product tags", () => {
     const bodyRequest = {
       "name": testProduct.tag
     }
-    cy.request({
+    cy.generateRequest({
       method: 'POST',
-      url: apiEndpoints.productTags,
-      auth:
-      {
-        username: 'auto',
-        password: 'auto',
-      },
+      endpoint: apiEndpoints.productTags,
       body: bodyRequest
     })
     .then(response =>{
@@ -38,14 +33,9 @@ describe("Validate partially updating product tags", () => {
       "description": testProduct.description,
       "slug": testSlug,
     }
-    cy.request({
+    cy.generateRequest({
       method: 'PUT',
-      url: `${apiEndpoints.productTags}/${productTagId}`,
-      auth:
-      {
-        username: 'auto',
-        password: 'auto',
-      },
+      endpoint: `${apiEndpoints.productTags}/${productTagId}`,
       body: bodyRequest
     })
     .then(response =>{
@@ -58,17 +48,10 @@ describe("Validate partially updating product tags", () => {
   })
 
   it ("Should delete the test data", () => {
-    cy.request({
+    cy.generateRequest({
       method: 'DELETE',
-      url: `${apiEndpoints.productTags}/${productTagId}`,
-      auth:
-      {
-        username: 'auto',
-        password: 'auto',
-      },
-      qs: {
-        force: true,
-      }
+      endpoint: `${apiEndpoints.productTags}/${productTagId}`,
+      force: true,
     })
     .then(response =>{
       expect(response.status).to.equal(200)
