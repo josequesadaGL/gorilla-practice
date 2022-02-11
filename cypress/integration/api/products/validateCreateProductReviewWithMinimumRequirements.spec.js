@@ -1,6 +1,6 @@
 
 describe("Validate testProduct Reviews can be created when providing required fields", () => {
-  let apiEndpoints, testProduct, testUser, testProductId
+  let apiEndpoints, testProduct, testUser, testProductId, testProductReviewId
 
   before(()=>{
     cy.fixture('apiEndpoints.json').then(endpoints => {apiEndpoints = endpoints})
@@ -29,7 +29,6 @@ describe("Validate testProduct Reviews can be created when providing required fi
       })
   })
 
-  let testProductReviewId
   it("Should send a testProduct Review POST request with required fields", () => {
     const fullName = `${testUser.firstName} ${testUser.lastName}`
     const bodyRequest = {
