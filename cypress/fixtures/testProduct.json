@@ -1,0 +1,10 @@
+
+{
+    "name": "Product",
+    "slug": "product",
+    "description": "Automated testing",
+    "regular_price": "25",
+    "sale_price": "20",
+    "tag": "tag_1",
+    "review": "Testing review creation"
+}

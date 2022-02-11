@@ -40,15 +40,19 @@ class ShopPage extends BasePage {
         .should('have.length', 12)
     }
 
-    async getProductInfo(productContainer) {
-        const productName = await productContainer.find(directory.productName).text()
-        const productPrice = await this.actionHelper.getNumbersFromText(productContainer.find(directory.productPrice).text())
-        return { name: productName, price: productPrice }
+    getProductInfo(productContainer) {
+        return cy.wrap(productContainer.find(directory.productName).text())
+        .then(productName => {
+            cy.getNumbersFromText(productContainer.find(directory.productPrice).text())
+            .then(productPrice => {
+                return { name: productName, price: productPrice }
+            })
+        })
     }
 
     getSideCart() {
         return cy.get(directory.cartLoadingOverlay)
-        .should('not.exist', {timeout: 3000})
+        .should('not.exist', {timeout: 3000}) // Waits for Cart loading-overlay to go away
         .then(()=>{
             return cy.get(directory.cartContainer)
                 .should('be.visible')

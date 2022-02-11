@@ -1,15 +1,19 @@
-import endpoints from "../../../support/endpoints"
-import {TEST_USER} from "../../../config/constants"
 
 describe("Validate customers can be deleted", () => {
-  let customerId
+  let apiEndpoints, testUser, customerId
+
+  before(()=>{
+    cy.fixture('apiEndpoints.json').then(endpoints => {apiEndpoints = endpoints})
+    cy.fixture('testUser.json').then(user => {testUser = user})
+  })
+
   it("Should send a Customer POST request with required fields", () => {
     const bodyRequest = {
-      "email": TEST_USER.email
+      "email": testUser.email
     }
     cy.request({
       method: 'POST',
-      url: endpoints.customers,
+      url: apiEndpoints.customers,
       auth:
       {
         username: 'auto',
@@ -20,12 +24,12 @@ describe("Validate customers can be deleted", () => {
     .then(response =>{
         expect(response.status).to.equal(201)
         expect(response.body.id).to.be.a('number')
-        expect(response.body.email).to.equal(TEST_USER.email)
+        expect(response.body.email).to.equal(testUser.email)
         expect(response.body.first_name).to.be.a('string')
         expect(response.body.last_name).to.a('string')
         expect(response.body.total_spent).to.equal('0.00')
-        expect(response.body.role).to.equal(TEST_USER.role)
-        expect(response.body.username).to.equal(TEST_USER.firstName.toLowerCase())
+        expect(response.body.role).to.equal(testUser.role)
+        expect(response.body.username).to.equal(testUser.firstName.toLowerCase())
         expect(response.body.orders_count).to.equal(0)
 
         customerId = response.body.id
@@ -35,7 +39,7 @@ describe("Validate customers can be deleted", () => {
   it ("Should delte a customer by sending a DELETE request", () => {
     cy.request({
       method: 'DELETE',
-      url: `${endpoints.customers}/${customerId}`,
+      url: `${apiEndpoints.customers}/${customerId}`,
       auth:
       {
         username: 'auto',
@@ -48,14 +52,14 @@ describe("Validate customers can be deleted", () => {
     .then(response =>{
       expect(response.status).to.equal(200)
       expect(response.body.id).to.equal(customerId)
-      expect(response.body.email).to.equal(TEST_USER.email)
+      expect(response.body.email).to.equal(testUser.email)
     })
   })
 
   it ("Should validate customer does not exist", () => {
     cy.request({
       method: 'GET',
-      url: `/wp-json/wc/v2/customers/${customerId}`,
+      url: `${apiEndpoints.customers}/${customerId}`,
       failOnStatusCode: false,
       auth:
       {

@@ -1,15 +1,19 @@
-import endpoints from "../../../support/endpoints"
-import {TEST_USER} from "../../../config/constants"
 
 describe("Validate partially updating customers", () => {
-  let customerId
+  let apiEndpoints, testUser, customerId
+
+  before(()=>{
+    cy.fixture('apiEndpoints.json').then(endpoints => {apiEndpoints = endpoints})
+    cy.fixture('testUser.json').then(user => {testUser = user})
+  })
+  
   it("Should create a new customer", () => {
     const bodyRequest = {
-      "email": TEST_USER.email
+      "email": testUser.email
     }
     cy.request({
       method: 'POST',
-      url: endpoints.customers,
+      url: apiEndpoints.customers,
       auth:
       {
         username: 'auto',
@@ -20,12 +24,12 @@ describe("Validate partially updating customers", () => {
     .then(response =>{
         expect(response.status).to.equal(201)
         expect(response.body.id).to.be.a('number')
-        expect(response.body.email).to.equal(TEST_USER.email)
+        expect(response.body.email).to.equal(testUser.email)
         expect(response.body.first_name).to.be.a('string')
         expect(response.body.last_name).to.a('string')
         expect(response.body.total_spent).to.equal('0.00')
-        expect(response.body.role).to.equal(TEST_USER.role)
-        expect(response.body.username).to.equal(TEST_USER.firstName.toLowerCase())
+        expect(response.body.role).to.equal(testUser.role)
+        expect(response.body.username).to.equal(testUser.firstName.toLowerCase())
         expect(response.body.orders_count).to.equal(0)
 
         customerId = response.body.id
@@ -34,12 +38,12 @@ describe("Validate partially updating customers", () => {
 
   it ("Should be able to update an existing customer's information", () => {
     const bodyRequest = {
-      "first_name": TEST_USER.firstName,
-      "last_name": TEST_USER.lastName
+      "first_name": testUser.firstName,
+      "last_name": testUser.lastName
     }
     cy.request({
       method: 'PUT',
-      url: `${endpoints.customers}/${customerId}`,
+      url: `${apiEndpoints.customers}/${customerId}`,
       auth:
       {
         username: 'auto',
@@ -50,11 +54,11 @@ describe("Validate partially updating customers", () => {
     .then(response =>{
         expect(response.status).to.equal(200)
         expect(response.body.id).to.equal(customerId)
-        expect(response.body.email).to.equal(TEST_USER.email)
-        expect(response.body.first_name).to.equal(TEST_USER.firstName)
-        expect(response.body.last_name).to.equal(TEST_USER.lastName)
-        expect(response.body.role).to.equal(TEST_USER.role)
-        expect(response.body.username).to.equal(TEST_USER.firstName.toLowerCase())
+        expect(response.body.email).to.equal(testUser.email)
+        expect(response.body.first_name).to.equal(testUser.firstName)
+        expect(response.body.last_name).to.equal(testUser.lastName)
+        expect(response.body.role).to.equal(testUser.role)
+        expect(response.body.username).to.equal(testUser.firstName.toLowerCase())
         expect(response.body.orders_count).to.equal(0)
 
         customerId = response.body.id
@@ -64,7 +68,7 @@ describe("Validate partially updating customers", () => {
   it ("Should delete the test data", () => {
     cy.request({
       method: 'DELETE',
-      url: `${endpoints.customers}/${customerId}`,
+      url: `${apiEndpoints.customers}/${customerId}`,
       auth:
       {
         username: 'auto',
@@ -77,7 +81,7 @@ describe("Validate partially updating customers", () => {
     .then(response =>{
       expect(response.status).to.equal(200)
       expect(response.body.id).to.equal(customerId)
-      expect(response.body.email).to.equal(TEST_USER.email)
+      expect(response.body.email).to.equal(testUser.email)
     })
   })
 })

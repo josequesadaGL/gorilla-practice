@@ -1,15 +1,21 @@
-import endpoints from "../../../support/endpoints"
-import {PRODUCT, RESPONSE_CODES, RESPONSE_MESSAGE} from "../../../config/constants"
 
 describe("Validate Product Tags can be deleted", () => {
-  let productTagId
+  let apiEndpoints, testProduct, responseCodes, responseMessages, productTagId
+
+  before(()=>{
+    cy.fixture('apiEndpoints.json').then(endpoints => {apiEndpoints = endpoints})
+    cy.fixture('testProduct.json').then(product => {testProduct = product})
+    cy.fixture('responseCodes.json').then(codes => {responseCodes = codes})
+    cy.fixture('responseMessages.json').then(messages => {responseMessages = messages})
+  })
+
   it("Should create a new product tag", () => {
     const bodyRequest = {
-      "name": PRODUCT.tag
+      "name": testProduct.tag
     }
     cy.request({
       method: 'POST',
-      url: endpoints.productTags,
+      url: apiEndpoints.productTags,
       auth:
       {
         username: 'auto',
@@ -21,8 +27,8 @@ describe("Validate Product Tags can be deleted", () => {
         expect(response.status).to.equal(201)
         expect(response.body.id).to.be.a('number')
         expect(response.body.description).to.be.a('string')
-        expect(response.body.name).to.equal(PRODUCT.tag)
-        expect(response.body.slug).to.equal(PRODUCT.tag)
+        expect(response.body.name).to.equal(testProduct.tag)
+        expect(response.body.slug).to.equal(testProduct.tag)
 
         productTagId = response.body.id
       })
@@ -31,7 +37,7 @@ describe("Validate Product Tags can be deleted", () => {
   it ("Should delte a Product Tag by sending a DELETE request", () => {
     cy.request({
       method: 'DELETE',
-      url: `${endpoints.productTags}/${productTagId}`,
+      url: `${apiEndpoints.productTags}/${productTagId}`,
       auth:
       {
         username: 'auto',
@@ -50,7 +56,7 @@ describe("Validate Product Tags can be deleted", () => {
   it ("Should validate product tag does not exist", () => {
     cy.request({
       method: 'GET',
-      url: `${endpoints.productTags}/${productTagId}`,
+      url: `${apiEndpoints.productTags}/${productTagId}`,
       failOnStatusCode: false,
       auth:
       {
@@ -60,8 +66,8 @@ describe("Validate Product Tags can be deleted", () => {
     })
     .then(response =>{
       expect(response.status).to.equal(404)
-      expect(response.body.code).to.equal(RESPONSE_CODES.invalidTerm)
-      expect(response.body.message).to.equal(RESPONSE_MESSAGE.resourceNotExist)
+      expect(response.body.code).to.equal(responseCodes.invalidTerm)
+      expect(response.body.message).to.equal(responseMessages.resourceNotExist)
     })
   })
 })
