@@ -5,14 +5,9 @@ describe("Validate that only registered users should be able to access the API",
     cy.fixture('apiEndpoints.json').then(endpoints => {apiEndpoints = endpoints})
   })
   it("Should send a request to the API without providing authentication", () => {
-     cy.request({
+     cy.generateRequest({
       method: 'GET',
-      url: apiEndpoints.customers,
-      auth:
-      {
-        username: 'auto',
-        password: 'auto',
-      },
+      endpoint: apiEndpoints.customers,
     })
     .then(response =>{
         expect(response.status).to.equal(200)

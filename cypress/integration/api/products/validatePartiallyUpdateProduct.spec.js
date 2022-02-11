@@ -8,14 +8,9 @@ describe("Validate partially updating Products", () => {
   })
 
   it("Should create a new product", () => {
-    cy.request({
+    cy.generateRequest({
       method: 'POST',
-      url: apiEndpoints.products,
-      auth:
-      {
-        username: 'auto',
-        password: 'auto',
-      },
+      endpoint: apiEndpoints.products,
     })
     .then(response =>{
       expect(response.status).to.equal(201)
@@ -34,14 +29,9 @@ describe("Validate partially updating Products", () => {
       "regular_price": testProduct.regular_price,
       "sale_price": testProduct.sale_price
     }
-    cy.request({
+    cy.generateRequest({
       method: 'PUT',
-      url: `${apiEndpoints.products}/${productId}`,
-      auth:
-      {
-        username: 'auto',
-        password: 'auto',
-      },
+      endpoint: `${apiEndpoints.products}/${productId}`,
       body: bodyRequest
     })
     .then(response =>{
@@ -57,17 +47,10 @@ describe("Validate partially updating Products", () => {
   })
 
   it ("Should delete the test data", () => {
-    cy.request({
+    cy.generateRequest({
       method: 'DELETE',
-      url: `${apiEndpoints.products}/${productId}`,
-      auth:
-      {
-        username: 'auto',
-        password: 'auto',
-      },
-      qs: {
-        force: true,
-      }
+      endpoint: `${apiEndpoints.products}/${productId}`,
+      force: true,
     })
     .then(response =>{
       expect(response.status).to.equal(200)

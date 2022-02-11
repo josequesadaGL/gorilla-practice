@@ -1,5 +1,5 @@
 
-describe("Validate testProduct Reviews can be created when providing required fields", () => {
+describe("Validate Product Reviews can be created when providing required fields", () => {
   let apiEndpoints, testProduct, testUser, testProductId, testProductReviewId
 
   before(()=>{
@@ -8,15 +8,10 @@ describe("Validate testProduct Reviews can be created when providing required fi
     cy.fixture('testUser.json').then(user => {testUser = user})
   })
 
-  it("Should send a Customer POST request with required fields", () => {
-    cy.request({
+  it("Should send a Product Review POST request with required fields", () => {
+    cy.generateRequest({
       method: 'POST',
-      url: apiEndpoints.products,
-      auth:
-      {                                                              
-        username: 'auto',
-        password: 'auto',
-      },
+      endpoint: apiEndpoints.products,
     })
     .then(response =>{
         expect(response.status).to.equal(201)
@@ -29,21 +24,16 @@ describe("Validate testProduct Reviews can be created when providing required fi
       })
   })
 
-  it("Should send a testProduct Review POST request with required fields", () => {
+  it("Should send a Product Review POST request with required fields", () => {
     const fullName = `${testUser.firstName} ${testUser.lastName}`
     const bodyRequest = {
       "review": testProduct.review,
       "name": fullName,
       "email": testUser.email
     }
-    cy.request({
+    cy.generateRequest({
       method: 'POST',
-      url: `${apiEndpoints.products}/${testProductId}/reviews`,
-      auth:
-      {                                                              
-        username: 'auto',
-        password: 'auto',
-      },
+      endpoint: `${apiEndpoints.products}/${testProductId}/reviews`,
       body: bodyRequest
     })
     .then(response =>{
@@ -57,18 +47,11 @@ describe("Validate testProduct Reviews can be created when providing required fi
       })
   })  
 
-  it ("Should delete the test review data", () => {
-    cy.request({
+  it ("Should delete the test Review data", () => {
+    cy.generateRequest({
       method: 'DELETE',
-      url: `${apiEndpoints.products}/${testProductId}/reviews/${testProductReviewId}`,
-      auth:
-      {
-        username: 'auto',
-        password: 'auto',
-      },
-      qs: {
-        force: true,
-      }
+      endpoint: `${apiEndpoints.products}/${testProductId}/reviews/${testProductReviewId}`,
+      force: true,
     })
     .then(response =>{
       expect(response.status).to.equal(200)
@@ -76,18 +59,11 @@ describe("Validate testProduct Reviews can be created when providing required fi
     })
   })
 
-  it ("Should delete the test testProduct data", () => {
-    cy.request({
+  it ("Should delete the test Product data", () => {
+    cy.generateRequest({
       method: 'DELETE',
-      url: `${apiEndpoints.products}/${testProductId}`,
-      auth:
-      {
-        username: 'auto',
-        password: 'auto',
-      },
-      qs: {
-        force: true,
-      }
+      endpoint: `${apiEndpoints.products}/${testProductId}`,
+      force: true,
     })
     .then(response =>{
       expect(response.status).to.equal(200)

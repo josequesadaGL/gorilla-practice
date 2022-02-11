@@ -1,5 +1,5 @@
 
-describe("Validate product tags without requirement parameters cannot be created", () => {
+describe("Validate Product Tags without required parameters cannot be created", () => {
   let apiEndpoints, responseCodes, responseMessages
 
   before(()=>{
@@ -9,15 +9,10 @@ describe("Validate product tags without requirement parameters cannot be created
   })
 
   it("Should send a Product Tag POST request without providing required field", () => {
-     cy.request({
+     cy.generateRequest({
       method: 'POST',
-      url: apiEndpoints.productTags,
-      failOnStatusCode: false,
-      auth:
-      {
-        username: 'auto',
-        password: 'auto',
-      },
+      endpoint: apiEndpoints.productTags,
+      negative: true,
     })
     .then(response =>{
         expect(response.status).to.equal(400)

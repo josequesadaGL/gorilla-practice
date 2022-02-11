@@ -13,14 +13,9 @@ describe("Validate Product Tags can be deleted", () => {
     const bodyRequest = {
       "name": testProduct.tag
     }
-    cy.request({
+    cy.generateRequest({
       method: 'POST',
-      url: apiEndpoints.productTags,
-      auth:
-      {
-        username: 'auto',
-        password: 'auto',
-      },
+      endpoint: apiEndpoints.productTags,
       body: bodyRequest
     })
     .then(response =>{
@@ -35,17 +30,10 @@ describe("Validate Product Tags can be deleted", () => {
   })
 
   it ("Should delte a Product Tag by sending a DELETE request", () => {
-    cy.request({
+    cy.generateRequest({
       method: 'DELETE',
-      url: `${apiEndpoints.productTags}/${productTagId}`,
-      auth:
-      {
-        username: 'auto',
-        password: 'auto',
-      },
-      qs: {
-        force: true,
-      }
+      endpoint: `${apiEndpoints.productTags}/${productTagId}`,
+      force: true,
     })
     .then(response =>{
       expect(response.status).to.equal(200)
@@ -54,15 +42,10 @@ describe("Validate Product Tags can be deleted", () => {
   })
 
   it ("Should validate product tag does not exist", () => {
-    cy.request({
+    cy.generateRequest({
       method: 'GET',
-      url: `${apiEndpoints.productTags}/${productTagId}`,
-      failOnStatusCode: false,
-      auth:
-      {
-        username: 'auto',
-        password: 'auto',
-      }
+      endpoint: `${apiEndpoints.productTags}/${productTagId}`,
+      negative: true
     })
     .then(response =>{
       expect(response.status).to.equal(404)
