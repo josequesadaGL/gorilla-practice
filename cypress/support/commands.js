@@ -31,3 +31,23 @@ Cypress.Commands.add('openHomePage', () => {
 Cypress.Commands.add('getNumbersFromText', (text) => {
     return parseInt(text.replace( /^\D+/g, ''))
 })
+
+Cypress.Commands.add('generateRequest', (options) => {
+    // Receives object with request options:
+    // - method    (required): request method eg: POST
+    // - negative  (optional): flag used to validate negative tests
+    // - endpoint  (required): request enpoint/url
+    // - body      (optional): request body
+    // - force     (optional): flag that forces the request, needed for DELETE
+    return cy.request ({
+     method: options.method,
+     failOnStatusCode: options.negative === undefined ? true:false,
+     url: options.endpoint,
+     headers: {
+       authorization: Cypress.env('AUTH_TOKEN')
+     },
+     body: options.body,
+     qs: { force: options.force === undefined ? false:true }
+   })
+   .then(response => {return response})
+})
