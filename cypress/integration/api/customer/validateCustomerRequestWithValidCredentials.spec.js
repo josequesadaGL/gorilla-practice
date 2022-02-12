@@ -1,5 +1,5 @@
 
-describe("Validate that only registered users should be able to access the API", () => {
+describe("Validate that only registered users should be able to access the API", {tags: 'api'}, () => {
   let apiEndpoints
   before(()=>{
     cy.fixture('apiEndpoints.json').then(endpoints => {apiEndpoints = endpoints})

@@ -1,6 +1,6 @@
 import ShopPage from '../../../support/pages/shop'
 
-describe("Verify that user can add products to their cart using the Add to Cart button", () => {
+describe("Verify that user can add products to their cart using the Add to Cart button", {tags: 'e2e'}, () => {
   before(() => {
     cy.openHomePage()
   })

@@ -1,6 +1,6 @@
 import ShopPage from '../../../support/pages/shop'
 
-describe("Verify card layout for products that are On Sale", () => {
+describe("Verify card layout for products that are On Sale", {tags: 'e2e'}, () => {
   before(() => {
     cy.openHomePage()
   })

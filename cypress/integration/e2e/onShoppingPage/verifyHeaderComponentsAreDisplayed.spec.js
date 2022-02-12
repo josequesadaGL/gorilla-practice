@@ -1,6 +1,6 @@
 import ShopPage from '../../../support/pages/shop'
 
-describe("Validate Site information and expected components", () => {
+describe("Validate Site information and expected components", {tags: 'e2e'}, () => {
   before(() => {
     cy.openHomePage()
   })

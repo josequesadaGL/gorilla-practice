@@ -1,5 +1,5 @@
 
-describe("Validate Product Tags without required parameters cannot be created", () => {
+describe("Validate Product Tags without required parameters cannot be created", {tags: 'api'}, () => {
   let apiEndpoints, responseCodes, responseMessages
 
   before(()=>{

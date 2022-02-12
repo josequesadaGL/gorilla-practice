@@ -1,5 +1,5 @@
 
-describe("Validate Product Reviews can be created when providing required fields", () => {
+describe("Validate Product Reviews can be created when providing required fields", {tags: 'api'}, () => {
   let apiEndpoints, testProduct, testUser, testProductId, testProductReviewId
 
   before(()=>{

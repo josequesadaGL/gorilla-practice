@@ -9,6 +9,7 @@
   },
   "description": "Cypress end-to-end test automation boilerplate. Using ES Modules, Chai and Should.",
   "devDependencies": {
+    "cypress-grep": "^2.13.1",
     "cypress-multi-reporters": "^1.5.0",
     "eslint": "7.32.0",
     "eslint-config-airbnb-base": "14.2.1",
@@ -70,8 +71,13 @@
     "clean:video": "npx rimraf cypress/videos/*",
     "lint": "npx eslint --ext .js ./ --fix",
     "cypress:gui": "npx cypress open",
-    "cypress:run": "npm run prereport && npx cypress run --headless --browser chrome",
-    "cypress:test": "npm run cypress:run; npm run mochawesome:merge; npm run junit:merge"
+    "cypress:run:all": "npm run prereport && npx cypress run --headless --browser chrome",
+    "cypress:run:e2e": "npm run prereport && npx cypress run --headless --browser chrome --env grepTags=\"e2e\"",
+    "cypress:run:api": "npm run prereport && npx cypress run --headless --browser chrome --env grepTags=\"api\"",
+    "cypress:all": "npm run cypress:run:all; npm run mochawesome:merge; npm run junit:merge",
+    "cypress:api": "npm run cypress:run:api; npm run processReports",
+    "cypress:e2e": "npm run cypress:run:e2e; npm run mochawesome:merge; npm run junit:merge",
+    "processReports": "npm run mochawesome:merge; npm run junit:merge"
   },
   "version": "1.0.0"
 }
