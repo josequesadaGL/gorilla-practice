@@ -1,5 +1,5 @@
 
-describe("Validate Customers are created when providing required fields", () => {
+describe("Validate Customers are created when providing required fields", {tags: 'api'}, () => {
   let apiEndpoints, testUser, customerId
 
   before(()=>{

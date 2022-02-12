@@ -1,7 +1,7 @@
 import ShopPage from '../../../support/pages/shop'
 import CartPage from '../../../support/pages/cart'
 
-describe("Verify that user can remove items from their cart", () => {
+describe("Verify that user can remove items from their cart", {tags: 'e2e'}, () => {
   before(() => {
     cy.openHomePage()
   })

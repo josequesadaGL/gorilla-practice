@@ -1,7 +1,7 @@
 import ShopPage from '../../../support/pages/shop'
 import ProductPage from '../../../support/pages/product'
 
-describe("Verify that user can access a product's details by clicking the product card", () => {
+describe("Verify that user can access a product's details by clicking the product card", {tags: 'e2e'}, () => {
   before(() => {
     cy.openHomePage()
   })

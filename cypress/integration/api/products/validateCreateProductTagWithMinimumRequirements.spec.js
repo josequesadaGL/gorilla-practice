@@ -1,5 +1,5 @@
 
-describe("Validate create product tag with required fields", () => {
+describe("Validate create product tag with required fields", {tags: 'api'}, () => {
   let apiEndpoints, testProduct, productTagId
 
   before(()=>{

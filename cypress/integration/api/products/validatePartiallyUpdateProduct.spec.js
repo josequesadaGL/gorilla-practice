@@ -1,5 +1,5 @@
 
-describe("Validate partially updating Products", () => {
+describe("Validate partially updating Products", {tags: 'api'}, () => {
   let apiEndpoints, testProduct, productId
 
   before(()=>{

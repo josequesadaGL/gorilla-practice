@@ -1,5 +1,5 @@
 
-describe("Validate Product Tags with the same name cannot be created", () => {
+describe("Validate Product Tags with the same name cannot be created", {tags: 'api'}, () => {
   let apiEndpoints, responseCodes, responseMessages, testProduct, productTagId, bodyRequest
 
   before(()=>{

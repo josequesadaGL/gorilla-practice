@@ -1,5 +1,5 @@
 
-describe("Validate Product Tags can be deleted", () => {
+describe("Validate Product Tags can be deleted", {tags: 'api'}, () => {
   let apiEndpoints, testProduct, responseCodes, responseMessages, productTagId
 
   before(()=>{

@@ -1,5 +1,5 @@
 
-describe("Validate customers can be deleted", () => {
+describe("Validate customers can be deleted", {tags: 'api'}, () => {
   let apiEndpoints, testUser, customerId
 
   before(()=>{

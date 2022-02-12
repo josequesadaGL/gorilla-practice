@@ -1,5 +1,5 @@
 
-describe("Validate that thrashing customers is not supported", () => {
+describe("Validate that thrashing customers is not supported", {tags: 'api'}, () => {
   let apiEndpoints, testUser, responseCodes, responseMessages, customerId
 
   before(()=>{

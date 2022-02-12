@@ -1,7 +1,7 @@
 import ShopPage from '../../../support/pages/shop'
 import directory from '../../../support/pages/directories/shop'
 
-describe("Verify that user can sort products by price Ascending", () => {
+describe("Verify that user can sort products by price Ascending", {tags: 'e2e'}, () => {
   before(() => {
     cy.openHomePage()
   })
