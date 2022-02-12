@@ -74,9 +74,9 @@
     "cypress:run:all": "npm run prereport && npx cypress run --headless --browser chrome",
     "cypress:run:e2e": "npm run prereport && npx cypress run --headless --browser chrome --env grepTags=\"e2e\"",
     "cypress:run:api": "npm run prereport && npx cypress run --headless --browser chrome --env grepTags=\"api\"",
-    "cypress:all": "npm run cypress:run:all; npm run mochawesome:merge; npm run junit:merge",
+    "cypress:all": "npm run cypress:run:all; npm run processReports",
     "cypress:api": "npm run cypress:run:api; npm run processReports",
-    "cypress:e2e": "npm run cypress:run:e2e; npm run mochawesome:merge; npm run junit:merge",
+    "cypress:e2e": "npm run cypress:run:e2e; npm run processReports",
     "processReports": "npm run mochawesome:merge; npm run junit:merge"
   },
   "version": "1.0.0"
