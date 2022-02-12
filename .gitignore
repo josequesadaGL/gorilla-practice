@@ -115,3 +115,6 @@ cypress/videos/
 cypress/screenshots/
 mochawesome-report/
 mochawesome.json
+
+# ENV
+cypress.env.json
