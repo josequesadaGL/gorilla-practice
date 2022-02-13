@@ -28,7 +28,7 @@ RUN apt-get install -y \
 RUN groupadd --system docker
 RUN usermod -a -G docker jenkins
 
-RUN setfacl --modify user:jenkins:rw /var/run/docker.sock
+# RUN setfacl --modify user:jenkins:rw /var/run/docker.sock
 RUN systemctl unmask docker
 RUN systemctl start docker
 
