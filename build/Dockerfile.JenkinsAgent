@@ -25,6 +25,7 @@ RUN apt-get install -y \
       xauth \
       xvfb
 
+RUN groupadd docker
 RUN setfacl --modify user:jenkins:rw /var/run/docker.sock
 RUN systemctl unmask docker
 RUN systemctl start docker
