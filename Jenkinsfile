@@ -1,6 +1,5 @@
 pipeline {
   agent none
-  tools { npm }
   stages {
     stage('Build') {
       failFast true
@@ -41,6 +40,6 @@ pipeline {
 
   }
   triggers {
-    cron('H/30 * * * *')
+    cron('H H/4 * * *')
   }
 }
