@@ -27,7 +27,6 @@ RUN apt-get install -y \
 
 RUN groupadd --system docker
 RUN usermod -a -G docker jenkins
-RUN chmod 666 /var/run/docker.sock
 
 RUN setfacl --modify user:jenkins:rw /var/run/docker.sock
 RUN systemctl unmask docker
@@ -41,4 +40,4 @@ RUN systemctl start docker
 # RUN npm install
 
 # RUN chown -R 1000 ../var/jenkins_home/
-# USER jenkins
+USER jenkins
