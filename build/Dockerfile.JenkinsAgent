@@ -30,11 +30,11 @@ apt-get install -y \
       xvfb && \
 
 # Checkout repo
-git clone https://github.com/josequesadaGL/gorilla-practice.git && \
-cd /gorilla-practice/ && \
+git clone https://github.com/josequesadaGL/gorilla-practice.git
 
+WORKDIR /gorilla-practice/
 # Install project dependencies
-npm install
+RUN npm install
 
 # RUN chown -R 1000 ../var/jenkins_home/
 USER jenkins
