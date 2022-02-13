@@ -30,7 +30,7 @@ RUN usermod -a -G docker jenkins
 
 # RUN setfacl --modify user:jenkins:rw /var/run/docker.sock
 RUN systemctl unmask docker
-RUN system docker start
+RUN service docker start
 
 # Checkout repo
 # RUN git clone https://github.com/josequesadaGL/gorilla-practice.git
