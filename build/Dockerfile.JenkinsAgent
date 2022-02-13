@@ -28,16 +28,12 @@ RUN apt-get install -y \
 RUN groupadd --system docker
 RUN usermod -a -G docker jenkins
 
-# RUN setfacl --modify user:jenkins:rw /var/run/docker.sock
-# RUN systemctl unmask docker
-# RUN service docker start
-
 # Checkout repo
-# RUN git clone https://github.com/josequesadaGL/gorilla-practice.git
-# WORKDIR /gorilla-practice/
+RUN git clone https://github.com/josequesadaGL/gorilla-practice.git
+WORKDIR /gorilla-practice/
 
 # Install project dependencies
-# RUN npm install
+RUN npm install
 
 # RUN chown -R 1000 ../var/jenkins_home/
 USER jenkins
