@@ -2,17 +2,27 @@ pipeline {
   agent any
   stages {
     stage('Cypress automation') {
-      environment {
-        CYPRESS_RECORD_KEY = 'fe77ef76-0f9b-4690-8e32-eba83fb9a533'
-        CYPRESS_PROJECT_ID = 'woj44y'
-        AUTH_TOKEN = 'Basic YXV0bzphdXRv'
-      }
-      stage('Tester1') {
-        steps {
-          echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-          sh 'google-chrome --version'
-          sh 'npm install -y'
-          sh 'npm run cypress:parallel'
+      parallel{
+        environment {
+          CYPRESS_RECORD_KEY = 'fe77ef76-0f9b-4690-8e32-eba83fb9a533'
+          CYPRESS_PROJECT_ID = 'woj44y'
+          AUTH_TOKEN = 'Basic YXV0bzphdXRv'
+        }
+        stage('Tester1') {
+          steps {
+            echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
+            sh 'google-chrome --version'
+            sh 'npm install -y'
+            sh 'npm run cypress:parallel'
+          }
+        }
+        stage('Tester2') {
+          steps {
+            echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
+            sh 'google-chrome --version'
+            sh 'npm install -y'
+            sh 'npm run cypress:parallel'
+          }
         }
       }
     }
