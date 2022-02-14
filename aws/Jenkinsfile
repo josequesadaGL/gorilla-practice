@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage('Cypress automation')
+    stage('Cypress automation') {
       parallel {
         stage('Tester1') {
           steps {
