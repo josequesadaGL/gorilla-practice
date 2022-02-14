@@ -118,3 +118,7 @@ mochawesome.json
 
 # ENV
 cypress.env.json
+
+# Build
+bulid/
+aws/
