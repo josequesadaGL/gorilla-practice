@@ -34,7 +34,7 @@ git clone https://github.com/josequesadaGL/gorilla-practice.git && \
 
 cd gorilla-practice
 # Install project dependencies
-RUN npm install && npm run cypress:parallel
+RUN npm install
 # RUN pwd
 # RUN ls -l
 # RUN npm run cypress:parallel
