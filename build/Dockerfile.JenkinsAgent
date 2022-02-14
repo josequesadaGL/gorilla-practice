@@ -3,7 +3,7 @@ FROM jenkins/agent:4.10-1
 USER root
 
 # Install required packages
-RUN --no-cache apt update && \
+RUN apt update && \
 apt install -y wget && \
 apt install -y npm && \
 # Node 17 (current) has a bug with Node options not allowing OpenSSL
