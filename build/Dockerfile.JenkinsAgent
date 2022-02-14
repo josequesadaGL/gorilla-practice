@@ -30,9 +30,9 @@ apt-get install -y \
       xvfb && \
 
 # Checkout repo
-git clone https://github.com/josequesadaGL/gorilla-practice.git skipcache
+git clone https://github.com/josequesadaGL/gorilla-practice.git --no-cache
 
-WORKDIR /skipcache/
+WORKDIR /gorilla-practice/
 # Install project dependencies
 RUN npm install
 RUN pwd
