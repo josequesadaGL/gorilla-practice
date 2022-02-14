@@ -3,11 +3,6 @@ pipeline {
   stages {
     stage('Build') {
       failFast true
-      stage('Cloning Git') {
-      steps {
-        git 'https://github.com/josequesadaGL/gorilla-practice.git'
-      }
-    }
       parallel {
         stage('Tester1') {
           agent {
