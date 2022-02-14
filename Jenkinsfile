@@ -9,7 +9,7 @@ pipeline {
             dockerfile {
               filename 'Dockerfile.JenkinsAgent'
               dir 'build'
-              args '--no-cache -v /var/run/docker.sock:/var/run/docker.sock -v /var/jenkins_home:/var/jenkins_home -v /var/docker/jenkins/jenkins:/var/jenkins'
+              args '-v /var/run/docker.sock:/var/run/docker.sock -v /var/jenkins_home:/var/jenkins_home -v /var/docker/jenkins/jenkins:/var/jenkins'
             }
 
           }
@@ -25,7 +25,7 @@ pipeline {
             dockerfile {
               filename 'Dockerfile.JenkinsAgent'
               dir 'build'
-              args '--no-cache -v /var/run/docker.sock:/var/run/docker.sock -v /var/jenkins_home:/var/jenkins_home -v /var/docker/jenkins/jenkins:/var/jenkins'
+              args '-v /var/run/docker.sock:/var/run/docker.sock -v /var/jenkins_home:/var/jenkins_home -v /var/docker/jenkins/jenkins:/var/jenkins'
             }
 
           }
