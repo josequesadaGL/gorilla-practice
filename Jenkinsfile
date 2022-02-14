@@ -26,10 +26,11 @@ pipeline {
         sh "npm run cypress:run --record false --ci-build-id ${env.BUILD_ID}"
       }
     }
-    post('Build reports') {
-      steps {
-        sh "npm run processReports"
-      }
+  }
+  post{
+    always {
+      echo "Generating reports"
+      sh "npm run processReports"
     }
   }
   triggers {
