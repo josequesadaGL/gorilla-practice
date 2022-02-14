@@ -1,9 +1,9 @@
 pipeline {
   agent any
   environment {
-    CYPRESS_RECORD_KEY = "${env.CYPRESS_RECORD_KEY}"
-    CYPRESS_PROJECT_ID = "${env.CYPRESS_PROJECT_ID}"
-    CYPRESS_AUTH_TOKEN = "${env.CYPRESS_AUTH_TOKEN}"
+    CYPRESS_RECORD_KEY = "${CYPRESS_RECORD_KEY}"
+    CYPRESS_PROJECT_ID = "${CYPRESS_PROJECT_ID}"
+    CYPRESS_AUTH_TOKEN = "${CYPRESS_AUTH_TOKEN}"
   }
   stages {
     stage('Cypress automation') {
