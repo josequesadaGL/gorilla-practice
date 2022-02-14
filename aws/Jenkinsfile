@@ -1,6 +1,10 @@
 pipeline {
   agent any
   stages {
+    environment {
+        CYPRESS_RECORD_KEY = 'fe77ef76-0f9b-4690-8e32-eba83fb9a533'
+        CYPRESS_PROJECT_ID = 'woj44y'
+    }
     stage('Cypress automation') {
       parallel {
         stage('Tester1') {
