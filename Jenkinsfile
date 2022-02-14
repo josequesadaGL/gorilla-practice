@@ -15,6 +15,9 @@ pipeline {
           }
           steps {
             echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
+            git "https://github.com/josequesadaGL/gorilla-practice.git"
+            dir ("gorilla-practice/")
+            sh "npm install"
             sh "npm run cypress:parallel"
           }
         }
