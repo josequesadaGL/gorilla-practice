@@ -6,7 +6,7 @@ ENV CYPRESS_RECORD_KEY fe77ef76-0f9b-4690-8e32-eba83fb9a533
 ENV CYPRESS_PROJECT_ID woj44y
 
 # Install required packages
-RUN apt update && \
+RUN apt update --no-cache && \
 apt install -y wget && \
 apt install -y npm && \
 # Node 17 (current) has a bug with Node options not allowing OpenSSL
@@ -30,7 +30,7 @@ apt-get install -y \
       xvfb && \
 
 # Checkout repo
-git clone https://github.com/josequesadaGL/gorilla-practice.git --no-cache
+git clone https://github.com/josequesadaGL/gorilla-practice.git
 
 WORKDIR /gorilla-practice/
 # Install project dependencies
