@@ -1,12 +1,22 @@
 pipeline {
   agent any
   stages {
-    stage('Build') {
-      steps {
-        echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-        sh 'google-chrome --version'
-        sh 'npm install -y'
-        sh 'npm run cypress:all'
+    parallel {
+      stage('Tester1') {
+        steps {
+          echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
+          sh 'google-chrome --version'
+          sh 'npm install -y'
+          sh 'npm run cypress:parallel'
+        }
+      }
+      stage('Tester2') {
+        steps {
+          echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
+          sh 'google-chrome --version'
+          sh 'npm install -y'
+          sh 'npm run cypress:parallel'
+        }
       }
     }
   }
