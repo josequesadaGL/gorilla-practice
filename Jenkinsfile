@@ -6,23 +6,27 @@ pipeline {
     CYPRESS_AUTH_TOKEN = "${CYPRESS_AUTH_TOKEN}"
   }
   stages {
-    stage('Validate Chrome setup') {
-      steps {
-        sh "google-chrome --version"
+    parallel{
+      stage('Validate Chrome setup') {
+        steps {
+          sh "google-chrome --version"
+        }
+      }
+      stage('Setup Cypress environment') {
+        steps {
+          sh "npm install -y"
+        }
       }
     }
-    stage('Setup Cypress environment') {
-      steps {
-        sh "npm install -y"
-      }
-    }
-    stage('Run automation') {
+    stage('Run automated tests') {
       steps {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-        sh "npm run cypress:run --record false --ci-build-id ${env.BUILD_ID}"
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+          sh "npm run cypress:run --record false --ci-build-id ${env.BUILD_ID}"
+        }
       }
     }
-    stage('Reporting') {
+    stage('Build reports') {
       steps {
         sh "npm run processReports"
       }
