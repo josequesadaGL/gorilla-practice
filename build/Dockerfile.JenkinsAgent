@@ -30,12 +30,12 @@ apt-get install -y \
       xvfb
 
 # Checkout repo
-RUN git clone https://github.com/josequesadaGL/gorilla-practice.git
+# RUN git clone https://github.com/josequesadaGL/gorilla-practice.git
 
 WORKDIR /gorilla-practice/
 # Install project dependencies
 RUN npm install
-RUN pwd
-RUN ls -l
-RUN npm run cypress:parallel
-USER jenkins
+# RUN pwd
+# RUN ls -l
+# RUN npm run cypress:parallel
+# USER jenkins
