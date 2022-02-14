@@ -78,7 +78,7 @@
     "cypress:all": "npm run cypress:run:all; npm run processReports",
     "cypress:api": "npm run cypress:run:api; npm run processReports",
     "cypress:e2e": "npm run cypress:run:e2e; npm run processReports",
-    "cypress:parallel": "npm run cypress:run:parallel -- --spec 'cypress/integration/api/**/*' --group API --ci-build-id 2 & npm run cypress:run:parallel -- --spec 'ypress/integration/e2e/**/*' --group E2E --ci-build-id 2",
+    "cypress:parallel": "npm run cypress:run:parallel -- --spec 'cypress/integration/api/**/*' --group API & npm run cypress:run:parallel -- --spec 'cypress/integration/e2e/**/*' --group E2E",
     "processReports": "npm run mochawesome:merge; npm run junit:merge"
   },
   "version": "1.0.0"
