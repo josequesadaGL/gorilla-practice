@@ -30,7 +30,8 @@ apt-get install -y \
       xvfb && \
 
 # Checkout repo
-git clone https://github.com/josequesadaGL/gorilla-practice.git
+git clone https://github.com/josequesadaGL/gorilla-practice.git && \
+skipcache
 
 WORKDIR /gorilla-practice/
 # Install project dependencies
