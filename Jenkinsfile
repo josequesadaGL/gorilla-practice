@@ -1,15 +1,6 @@
 pipeline {
   agent none
   stages {
-    stage('Code Checkout') {
-            steps {
-                checkout([
-                    $class: 'GitSCM', 
-                    branches: [[name: '*/main']], 
-                    userRemoteConfigs: [[url: 'https://github.com/josequesadaGL/gorilla-practice.git']]
-                ])
-            }
-        }
     stage('Cypress test') {
       agent {
         dockerfile {
@@ -20,6 +11,11 @@ pipeline {
       }
       steps {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
+        checkout([
+                    $class: 'GitSCM', 
+                    branches: [[name: '*/main']], 
+                    userRemoteConfigs: [[url: 'https://github.com/josequesadaGL/gorilla-practice.git']]
+                ])
         sh "ls -l"
         sh "npm install"
         sh "npm run cypress:test"
