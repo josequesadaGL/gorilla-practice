@@ -23,12 +23,10 @@ pipeline {
     stage('Run automated tests') {
       steps {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-          sh "npm run cypress:run --record false --ci-build-id ${env.BUILD_ID}"
-        }
+        sh "npm run cypress:run --record false --ci-build-id ${env.BUILD_ID}"
       }
     }
-    stage('Build reports') {
+    post('Build reports') {
       steps {
         sh "npm run processReports"
       }
