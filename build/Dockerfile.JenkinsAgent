@@ -28,7 +28,7 @@ apt-get install -y \
       libasound2 \
       libxtst6 \
       xauth \
-      xvfb
+      xvfb \
 
 # Checkout repo
 # git clone https://github.com/josequesadaGL/gorilla-practice.git
