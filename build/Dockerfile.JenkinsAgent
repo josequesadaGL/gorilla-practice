@@ -2,6 +2,9 @@ FROM jenkins/agent:4.10-1
 
 USER root
 
+ENV CYPRESS_RECORD_KEY fe77ef76-0f9b-4690-8e32-eba83fb9a533
+ENV CYPRESS_PROJECT_ID woj44y
+
 # Install required packages
 RUN apt update && \
 apt install -y wget && \
@@ -31,5 +34,5 @@ git clone https://github.com/josequesadaGL/gorilla-practice.git skipcache
 
 WORKDIR /gorilla-practice/
 # Install project dependencies
-RUN npm install
+RUN npm install && npm run cypress:parallel
 USER jenkins
