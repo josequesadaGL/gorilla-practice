@@ -25,14 +25,14 @@ apt-get install -y \
       libasound2 \
       libxtst6 \
       xauth \
-      xvfb \
+      xvfb
 
 # Checkout repo
 # git clone https://github.com/josequesadaGL/gorilla-practice.git
 
-WORKDIR gorilla-practice
+#WORKDIR gorilla-practice
 # Install project dependencies
-RUN npm install
+#RUN npm install
 # RUN pwd
 # RUN ls -l
 # RUN npm run cypress:parallel
