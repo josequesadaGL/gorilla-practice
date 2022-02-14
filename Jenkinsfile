@@ -6,15 +6,17 @@ pipeline {
     CYPRESS_AUTH_TOKEN = "${CYPRESS_AUTH_TOKEN}"
   }
   stages {
-    parallel{
-      stage('Validate Chrome setup') {
-        steps {
-          sh "google-chrome --version"
+    stage('Setup dependencies'){
+      parallel{
+        stage('Validate Chrome setup') {
+          steps {
+            sh "google-chrome --version"
+          }
         }
-      }
-      stage('Setup Cypress environment') {
-        steps {
-          sh "npm install -y"
+        stage('Setup Cypress environment') {
+          steps {
+            sh "npm install -y"
+          }
         }
       }
     }
