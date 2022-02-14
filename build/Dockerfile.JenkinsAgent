@@ -3,15 +3,12 @@ FROM jenkins/agent:4.10-1
 USER root
 
 # Install required packages
-RUN apt update && \
+RUN --no-cache apt update && \
 apt install -y wget && \
 apt install -y npm && \
 # Node 17 (current) has a bug with Node options not allowing OpenSSL
 # Unsetting Node_options fixes this
 unset NODE_OPTIONS && \
-
-# RUN groupadd --system docker
-# RUN usermod -a -G docker jenkins
 
 # Install Google Chrome
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
@@ -35,6 +32,4 @@ git clone https://github.com/josequesadaGL/gorilla-practice.git
 WORKDIR /gorilla-practice/
 # Install project dependencies
 RUN npm install
-
-# RUN chown -R 1000 ../var/jenkins_home/
 USER jenkins
