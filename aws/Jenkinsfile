@@ -26,4 +26,7 @@ pipeline {
       }
     }
   }
+  triggers {
+    cron('H H/4 * * *')
+  }
 }
