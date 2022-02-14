@@ -7,6 +7,9 @@ COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 COPY casc.yml /var/jenkins_home/casc.yml
 RUN  /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
 ENV CASC_JENKINS_CONFIG /var/jenkins_home/casc.yml
+ENV CYPRESS_RECORD_KEY 'fe77ef76-0f9b-4690-8e32-eba83fb9a533'
+ENV CYPRESS_PROJECT_ID 'woj44y'
+ENV CYPRESS_AUTH_TOKEN 'Basic YXV0bzphdXRv'
 
 RUN uname -a && cat /etc/*release
 
