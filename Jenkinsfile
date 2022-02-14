@@ -24,7 +24,6 @@ pipeline {
     }
     stage('Reporting') {
       steps {
-        echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
         sh "npm run processReports"
       }
     }
