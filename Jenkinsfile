@@ -33,7 +33,8 @@ pipeline {
       sh "npm run processReports"
     }
     failure {
-      emailext body: '<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL de build: ${env.BUILD_URL}',
+      emailext mimeType: 'text/html',
+        body: '${FILE, path="/mochawesome-report/mochawesome.html"}',
         subject: 'Build Failed - ${env.BUILD_NUMBER}',
         to: 'jose.quesada@gorillalogic.com',
         attachmentsPattern: '**/mochawesome-report/*'
