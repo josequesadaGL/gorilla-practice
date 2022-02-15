@@ -35,7 +35,7 @@ pipeline {
     failure {
       emailext body: '<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL de build: ${env.BUILD_URL}',
         subject: 'Build Failed - ${env.BUILD_NUMBER}',
-        to: 'jose.quesada@gorillalogic.com'
+        to: 'jose.quesada@gorillalogic.com',
         attachmentsPattern: '**/mochawesome-report/*'
     }
   }
