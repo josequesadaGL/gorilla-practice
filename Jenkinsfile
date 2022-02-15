@@ -7,6 +7,9 @@ pipeline {
   }
   stages {
     stage('Setup dependencies'){
+      when {
+        branch "main"
+      }
       parallel{
         stage('Validate Chrome setup') {
           steps {
@@ -21,6 +24,9 @@ pipeline {
       }
     }
     stage('Run automated tests') {
+      when {
+        branch "main"
+      }
       steps {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
         sh "npm run cypress:run --record false --ci-build-id ${env.BUILD_ID}"
