@@ -56,31 +56,27 @@
       "prettier --write"
     ]
   },
-  "name": "cypress-es-modules-chai-should",
+  "name": "gorilla-automation-playground",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/josequesadaGL/gorilla-practice.git"
   },
   "scripts": {
-    "delete:reports": "rm -r cypress/results/* || true",
-    "prereport": "npm run delete:reports",
-    "report": "cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json",
+    "lint": "npx eslint --ext .js ./ --fix",
+
+    "cleanReports": "npx rimraf cypress/results/* || true && npx rimraf mochawesome-report/* || true",
     "mochawesome:merge": "npx mochawesome-merge \"cypress/results/mochawesome/*.json\" > mochawesome.json && npx marge mochawesome.json",
     "junit:merge": "npx junit-merge -d cypress/results/junit -o cypress/results/junit/result.xml",
-    "clean:screenshots": "npx rimraf cypress/screenshots/*",
-    "clean:video": "npx rimraf cypress/videos/*",
-    "lint": "npx eslint --ext .js ./ --fix",
-    "cypress:gui": "npx cypress open",
-    "cypress:run:parallel": "npx cypress run --headless --record --parallel",
-    "cypress:run": "npx cypress run --headless --browser chrome",
-    "cypress:run:all": "npm run prereport && npm run cypress:run",
-    "cypress:run:e2e": "npm run prereport && npx cypress run --headless --browser chrome --env grepTags=\"e2e\"",
-    "cypress:run:api": "npm run prereport && npx cypress run --headless --browser chrome --env grepTags=\"api\"",
-    "cypress:all": "npm run cypress:run:all; npm run processReports",
-    "cypress:api": "npm run cypress:run:api; npm run processReports",
-    "cypress:e2e": "npm run cypress:run:e2e; npm run processReports",
-    "cypress:parallel": "npm run cypress:run:parallel -- --spec 'cypress/integration/api/**/*' --group API & npm run cypress:run:parallel -- --spec 'cypress/integration/e2e/**/*' --group E2E",
-    "processReports": "npm run mochawesome:merge; npm run junit:merge"
+    "report": "cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json; npm run mochawesome:merge && npm run junit:merge",
+
+    "gui": "npx cypress open",
+    "dashboard": "npm run chrome --group Chrome --record --parallel && npm run firefox --group Firefox --record --parallel",
+
+    "chrome": "npm run cleanReports && npx cypress run --headless --browser chrome; npm run report",
+    "firefox": "npm run cleanReports && npx cypress run --headless --browser firefox; npm run report",
+
+    "e2e": "npm run chrome --env grepTags=\"e2e\"; npm run report",
+    "api": "npm run chrome --env grepTags=\"api\"; npm run report"
   },
   "version": "1.0.0"
 }
