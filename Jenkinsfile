@@ -9,11 +9,14 @@ pipeline {
     CYPRESS_AUTH_TOKEN = "${CYPRESS_AUTH_TOKEN}"
   }
   stages {
-    stage('Checkout main') {
+    stage('Checkout') {
       steps {
         checkout([
          $class: 'GitSCM',
-         branches: [[name: '*/main']],
+         branches: scm.branches,
+         doGenerateSubmoduleConfigurations: scm.doGenerateSubmoduleConfigurations,
+         extensions: scm.extensions + [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'gorilla-logic']],
+         userRemoteConfigs: scm.userRemoteConfigs
         ])
       }
     }
