@@ -3,18 +3,15 @@ import locators from '../locators/cart'
 
 class CartPage extends BasePage {
 
-    // *** Actions *** //
-    navigateToCartPage() {
-        this.navigateToTab(locators.pageTabs.cart)
+    // *** Getters *** //
+    getCartPageBanner() {
+        return cy.get(locators.emptyCartBanner)
+        .should('be.visible')
     }
 
-
-    // *** Validations *** //
-    validateCartIsEmpty() {
-        cy.get(locators.emptyCartBanner)
-        .should('be.visible')
-        .invoke('text')
-        .should('contain', locators.emptyCartMessage)
+    // *** Actions *** //
+    navigateToCartPage() {
+        return this.navigateToTab(locators.pageTabs.cart)
     }
 }
 

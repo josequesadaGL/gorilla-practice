@@ -102,7 +102,7 @@ describe("Validating Customers endpoint", {tags: 'api'}, () => {
             customerId = response.body.id
         })
 
-        cy.generateRequest({
+        cy.generateApiRequest({
             method: 'DELETE',
             endpoint: `${apiEndpoints.customers}/${customerId}`,
             negative: true,
@@ -129,7 +129,7 @@ describe("Validating Customers endpoint", {tags: 'api'}, () => {
             })
         })
         .then(()=>{
-            cy.generateRequest({
+            cy.generateApiRequest({
                 method: 'GET',
                 endpoint: `${apiEndpoints.customers}/${customerId}`,
                 negative: true

@@ -59,6 +59,10 @@ class ShopPage extends BasePage {
         })
     }
 
+    getSortingDropdown() {
+        return cy.get(locators.sortingDropdown)
+    }
+
     // *** Actions *** //
     addFirstPurchasableProductToCart() {
         return this.getFirstPurchasableProduct()
@@ -67,8 +71,8 @@ class ShopPage extends BasePage {
         })
     }
 
-    addProductToCart(productContainer, productsInCart=1) {
-        this.getProductInfo(productContainer)
+    addProductToCart(productContainer) {
+        return this.getProductInfo(productContainer)
         .then(productInfo =>{
             cy.wrap(productContainer)
             .find(locators.buttonComponent)
@@ -76,18 +80,18 @@ class ShopPage extends BasePage {
             .get(locators.cartContainer, {timeout: 3000})
             .should('be.visible')
             .then(() => {
-                this.validateProductInCart( {
+                return {
                     name: productInfo.name,
                     price: productInfo.price,
-                    total: (productInfo.price * productsInCart) 
-                })
+                    total: (productInfo.price) 
+                }
             })
         })
     }
 
     closeSideCart() {
         cy.get(locators.continueShoppingButton).click()
-        .then(()=>{
+        .then(()=>{// Wait for transition
             cy.get(locators.cartContainer).should('not.be.visible')
         })
     }
@@ -97,18 +101,6 @@ class ShopPage extends BasePage {
         .find(locators.productImage)
         .click()
         .wait(1000) // Wait for component transition
-    }
-
-    navigateToNextPageInProductGrid() {
-        this.getCurrentPageNumber()
-        .should('eq', '1')
-        .then(()=>{
-            this.nextPageInGrid()
-            .then(()=>{
-                this.getCurrentPageNumber()
-                .should('eq', '2')
-            })
-        })
     }
 
     nextPageInGrid() {
@@ -128,74 +120,18 @@ class ShopPage extends BasePage {
     }
 
     sortGridByPriceAsc() {
-        this.sortProductGrid(locators.sortingOptions.priceAsc)
-        .then(() => {
-            this.validateSelectedSortingOption(locators.sortingLabels.priceAsc)
-        })
+        return this.sortProductGrid(locators.sortingOptions.priceAsc)
     }
 
     sortGridByPriceDesc() {
-        this.sortProductGrid(locators.sortingOptions.priceDesc)
-        .then(() => {
-            this.validateSelectedSortingOption(locators.sortingLabels.priceDesc)
-        })
+        return this.sortProductGrid(locators.sortingOptions.priceDesc)
     }
 
     sortProductGrid(option) {
         return cy.get(locators.sortingDropdown)
         .select(option)
+        .wait(1000)// wait for transition
     }
-
-    // *** Validations *** //
-    validateCartIsEmpty() {
-        this.getSideCart()
-        .then(sideCart => {
-            cy.wrap(sideCart).find(locators.removeItemButton).should('not.be.visible', {timeout: 1000})
-            cy.wrap(sideCart).find(locators.cartTotalAmount).invoke('text').should('contain', '0.00')
-            this.closeSideCart()
-        })
-    }
-
-    validateOnSaleCardLayout(productContainer) {
-        cy.wrap(productContainer).find(locators.onSaleLabel)
-        .should('be.visible')
-        .invoke('text')
-        .should('contain', locators.onSaleLabelText)
-        cy.wrap(productContainer).find(locators.priceAmount)
-        .should('be.visible')
-        .and('have.length', 2)
-    }
-
-    validateProductCardBasicLayout(productContainer) {
-        cy.wrap(productContainer).find(locators.productImage).should('be.visible')
-        cy.wrap(productContainer).find(locators.productName).should('be.visible')
-        cy.wrap(productContainer).find(locators.priceAmount)
-        .should('be.visible')
-        .and('have.length', 1)
-        cy.wrap(productContainer).find(locators.buttonComponent).should('be.visible')
-    }
-
-    validateProductInCart(productInfo) {
-        this.getSideCart()
-        .then(sideCart => {
-            cy.wrap(sideCart).find(locators.cartProductName).invoke('text').should('contain', productInfo.name)
-            cy.wrap(sideCart).find(locators.cartProductPrice).invoke('text').should('contain', productInfo.price)
-            cy.wrap(sideCart).find(locators.cartTotalAmount).invoke('text').should('contains', productInfo.total)
-        })
-    }
-
-    validateSelectedSortingOption(option) {
-        cy.get(locators.sortingDropdown)
-        .should('be.visible')
-        .find(':selected')
-        .invoke('text')
-        .should('contain', option)
-    }
-
-    validateShopBanner() {
-        this.getBannerText().should("eq", locators.bannerText)
-    }
-
 }
 
 export default new ShopPage()

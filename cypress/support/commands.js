@@ -32,7 +32,7 @@ Cypress.Commands.add('getNumbersFromText', (text) => {
     return parseInt(text.replace( /^\D+/g, ''))
 })
 
-Cypress.Commands.add('generateRequest', (options) => {
+Cypress.Commands.add('generateApiRequest', (options) => {
     // Receives object with request options:
     // - method    (required): request method eg: POST
     // - negative  (optional): flag used to validate negative tests
