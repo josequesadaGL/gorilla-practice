@@ -47,7 +47,7 @@ pipeline {
   }
   post {
     always {
-      //archiveArtifacts artifacts: 'mochawesome-report/'
+      archiveArtifacts artifacts: 'mochawesome-report/'
       publishHTML (target: [
         allowMissing: false,
         alwaysLinkToLastBuild: false,
