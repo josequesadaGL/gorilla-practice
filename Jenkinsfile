@@ -48,7 +48,7 @@ pipeline {
   post {
     always {
       echo 'Publishing reports'
-      archiveArtifacts artifacts: (includes: '**/mochawesome-report/*')
+      archiveArtifacts artifacts: '**/mochawesome-report/*'
       publishHTML (target: [
         allowMissing: false,
         alwaysLinkToLastBuild: false,
