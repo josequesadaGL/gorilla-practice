@@ -1,22 +1,19 @@
 pipeline {
   agent any
-  // options {
-  //   skipDefaultCheckout(true)
-  // }
+  options {
+    skipDefaultCheckout(true)
+  }
   environment {
     CYPRESS_RECORD_KEY = "${CYPRESS_RECORD_KEY}"
     CYPRESS_PROJECT_ID = "${CYPRESS_PROJECT_ID}"
     CYPRESS_AUTH_TOKEN = "${CYPRESS_AUTH_TOKEN}"
   }
   stages {
-    stage('Checkout') {
+    stage('Checkout main') {
       steps {
         checkout([
          $class: 'GitSCM',
-         branches: scm.branches,
-         doGenerateSubmoduleConfigurations: scm.doGenerateSubmoduleConfigurations,
-         extensions: scm.extensions + [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'gorilla-logic']],
-         userRemoteConfigs: scm.userRemoteConfigs
+         branches: [[name: '*/main']],
         ])
       }
     }
@@ -30,7 +27,7 @@ pipeline {
 
         stage('Setup Cypress environment') {
           steps {
-            sh 'npm install -y'
+            // sh 'npm install -y'
           }
         }
 
@@ -40,7 +37,7 @@ pipeline {
     stage('Run automated tests') {
       steps {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-        sh "npm run chrome --record false --ci-build-id ${env.BUILD_ID}"
+        // sh "npm run chrome --record false --ci-build-id ${env.BUILD_ID}"
       }
     }
 
@@ -54,7 +51,7 @@ pipeline {
         keepAll: true,
         reportDir: 'mochawesome-report',
         reportFiles: 'mochawesome.html',
-        reportName: "Build Report"
+        reportName: "Test Report"
       ])
     }
     success {
