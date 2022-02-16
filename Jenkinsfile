@@ -21,6 +21,7 @@ pipeline {
       }
     }
     stage('Setup dependencies') {
+      echo("Pull Request: ${env.CHANGE_ID}")
       parallel {
         stage('Validate Chrome setup') {
           steps {
@@ -30,8 +31,7 @@ pipeline {
 
         stage('Setup Cypress environment') {
           steps {
-            echo("Change: ${env.CHANGE_ID}")
-            // sh 'npm install -y'
+            sh 'npm install -y'
           }
         }
 
@@ -41,7 +41,7 @@ pipeline {
     stage('Run automated tests') {
       steps {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-        // sh "npm run chrome --record false --ci-build-id ${env.BUILD_ID}"
+        sh "npm run chrome --record false --ci-build-id ${env.BUILD_ID}"
       }
     }
 
