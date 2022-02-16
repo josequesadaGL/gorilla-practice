@@ -1,5 +1,21 @@
 pipeline {
   agent any
+  options {
+    skipDefaultCheckout(true)
+  }
+  stages {
+    stage('Checkout') {
+      steps {
+        checkout([
+         $class: 'GitSCM',
+         branches: scm.branches,
+         doGenerateSubmoduleConfigurations: scm.doGenerateSubmoduleConfigurations,
+         extensions: scm.extensions + [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'gorilla-logic']],
+         userRemoteConfigs: scm.userRemoteConfigs
+        ])
+      }
+    }
+  }
   stages {
     stage('Setup dependencies') {
       parallel {
@@ -33,11 +49,32 @@ pipeline {
   }
   post {
     always {
-      echo 'Generating reports'
+      echo 'Publishing reports'
+      archive (includes: 'mochawesome-report/*')
+      publishHTML (target: [
+        allowMissing: false,
+        alwaysLinkToLastBuild: false,
+        keepAll: true,
+        reportDir: 'mochawesome-report',
+        reportFiles: 'mochawesome.html',
+        reportName: "Build Report"
+      ])
     }
-
+    success {
+      script {
+        if (env.CHANGE_ID) {
+          pullRequest.removeLabel('Fail')
+          pullRequest.addLabel('Pass')
+        }
+      }
+    }
     failure {
-      emailext(mimeType: 'text/html', body: '${FILE, path="/mochawesome-report/mochawesome.html"}', subject: 'Build Failed - ${env.BUILD_NUMBER}', to: 'jose.quesada@gorillalogic.com', attachmentsPattern: '**/mochawesome-report/*')
+      script {
+        if (env.CHANGE_ID) {
+          pullRequest.removeLabel('Pass')
+          pullRequest.addLabel('Fail')
+        }
+      }
     }
 
   }
