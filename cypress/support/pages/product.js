@@ -1,5 +1,5 @@
 import BasePage from './base'
-import directory from './directories/product'
+import locators from '../locators/product'
 
 class ProductPage extends BasePage {
 

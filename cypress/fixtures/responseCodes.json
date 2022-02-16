@@ -3,6 +3,7 @@
     "missingParams": "rest_missing_callback_param",
     "cannotView": "woocommerce_rest_cannot_view",
     "invalidTerm": "woocommerce_rest_term_invalid",
+    "invalidId": "woocommerce_rest_invalid_id",
     "thrashUnsupported": "woocommerce_rest_trash_not_supported",
     "termExists": "term_exists"
 }

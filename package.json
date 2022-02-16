@@ -75,8 +75,8 @@
     "chrome": "npm run cleanReports && npx cypress run --headless --browser chrome; npm run report",
     "firefox": "npm run cleanReports && npx cypress run --headless --browser firefox; npm run report",
 
-    "e2e": "npm run chrome --env grepTags=\"e2e\"; npm run report",
-    "api": "npm run chrome --env grepTags=\"api\"; npm run report"
+    "e2e": "npm run cleanReports && npx cypress run --headless --browser chrome --env grepTags=\"e2e\"; npm run report",
+    "api": "npm run cleanReports && npx cypress run --headless --browser chrome --env grepTags=\"api\"; npm run report"
   },
   "version": "1.0.0"
 }
