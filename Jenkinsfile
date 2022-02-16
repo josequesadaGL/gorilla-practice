@@ -15,8 +15,6 @@ pipeline {
         ])
       }
     }
-  }
-  stages {
     stage('Setup dependencies') {
       parallel {
         stage('Validate Chrome setup') {
@@ -79,6 +77,6 @@ pipeline {
 
   }
   triggers {
-    cron('H/60 * * * *')
+    cron('H/15 * * * *')
   }
 }
