@@ -30,6 +30,7 @@ pipeline {
 
         stage('Setup Cypress environment') {
           steps {
+            echo("Change: ${env.CHANGE_ID}")
             // sh 'npm install -y'
           }
         }
