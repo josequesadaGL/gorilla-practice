@@ -1,11 +1,11 @@
 import BasePage from './base'
-import directory from './directories/shop'
+import locators from '../locators/shop'
 
 class ShopPage extends BasePage {
 
     // *** Getters *** //
     getCurrentPageNumber() {
-        return cy.get(directory.paginationContainer)
+        return cy.get(locators.paginationContainer)
             .should('be.visible')
             .find('.current')
             .invoke('text')
@@ -15,10 +15,10 @@ class ShopPage extends BasePage {
         return this.getProductGrid()
         .then( products => {
             cy.wrap(products)
-            .find(directory.buttonComponent)
-            .contains(directory.addToCartLabel)
+            .find(locators.buttonComponent)
+            .contains(locators.addToCartLabel)
             .eq(0)
-            .parents(directory.productContainer)
+            .parents(locators.productContainer)
             .then(product => {return product})
         })
     }
@@ -27,23 +27,23 @@ class ShopPage extends BasePage {
         return this.getProductGrid()
         .then( products => {
             cy.wrap(products)
-            .find(directory.onSaleLabel)
+            .find(locators.onSaleLabel)
             .eq(0)
-            .parents(directory.productContainer)
+            .parents(locators.productContainer)
             .then(product => {return product})
         })
     }
 
     getProductGrid() {
-        return cy.get(directory.productGridContainer)
-        .find(directory.productContainer)
+        return cy.get(locators.productGridContainer)
+        .find(locators.productContainer)
         .should('have.length', 12)
     }
 
     getProductInfo(productContainer) {
-        return cy.wrap(productContainer.find(directory.productName).text())
+        return cy.wrap(productContainer.find(locators.productName).text())
         .then(productName => {
-            cy.getNumbersFromText(productContainer.find(directory.productPrice).text())
+            cy.getNumbersFromText(productContainer.find(locators.productPrice).text())
             .then(productPrice => {
                 return { name: productName, price: productPrice }
             })
@@ -51,10 +51,10 @@ class ShopPage extends BasePage {
     }
 
     getSideCart() {
-        return cy.get(directory.cartLoadingOverlay)
+        return cy.get(locators.cartLoadingOverlay)
         .should('not.exist', {timeout: 3000}) // Waits for Cart loading-overlay to go away
         .then(()=>{
-            return cy.get(directory.cartContainer)
+            return cy.get(locators.cartContainer)
                 .should('be.visible')
         })
     }
@@ -71,9 +71,9 @@ class ShopPage extends BasePage {
         this.getProductInfo(productContainer)
         .then(productInfo =>{
             cy.wrap(productContainer)
-            .find(directory.buttonComponent)
+            .find(locators.buttonComponent)
             .click()
-            .get(directory.cartContainer, {timeout: 3000})
+            .get(locators.cartContainer, {timeout: 3000})
             .should('be.visible')
             .then(() => {
                 this.validateProductInCart( {
@@ -86,15 +86,15 @@ class ShopPage extends BasePage {
     }
 
     closeSideCart() {
-        cy.get(directory.continueShoppingButton).click()
+        cy.get(locators.continueShoppingButton).click()
         .then(()=>{
-            cy.get(directory.cartContainer).should('not.be.visible')
+            cy.get(locators.cartContainer).should('not.be.visible')
         })
     }
 
     enterProductDetails(productContainer) {
         return cy.wrap(productContainer)
-        .find(directory.productImage)
+        .find(locators.productImage)
         .click()
         .wait(1000) // Wait for component transition
     }
@@ -112,7 +112,7 @@ class ShopPage extends BasePage {
     }
 
     nextPageInGrid() {
-        return cy.get(directory.paginationButtons)
+        return cy.get(locators.paginationButtons)
             .eq(-1)
             .click()
     }
@@ -121,28 +121,28 @@ class ShopPage extends BasePage {
         this.getSideCart()
         .then(sideCart => {
             cy.wrap(sideCart)
-            .find(directory.removeItemButton)
+            .find(locators.removeItemButton)
             .click()
             .wait(500) // waits for component transition
         })
     }
 
     sortGridByPriceAsc() {
-        this.sortProductGrid(directory.sortingOptions.priceAsc)
+        this.sortProductGrid(locators.sortingOptions.priceAsc)
         .then(() => {
-            this.validateSelectedSortingOption(directory.sortingLabels.priceAsc)
+            this.validateSelectedSortingOption(locators.sortingLabels.priceAsc)
         })
     }
 
     sortGridByPriceDesc() {
-        this.sortProductGrid(directory.sortingOptions.priceDesc)
+        this.sortProductGrid(locators.sortingOptions.priceDesc)
         .then(() => {
-            this.validateSelectedSortingOption(directory.sortingLabels.priceDesc)
+            this.validateSelectedSortingOption(locators.sortingLabels.priceDesc)
         })
     }
 
     sortProductGrid(option) {
-        return cy.get(directory.sortingDropdown)
+        return cy.get(locators.sortingDropdown)
         .select(option)
     }
 
@@ -150,42 +150,42 @@ class ShopPage extends BasePage {
     validateCartIsEmpty() {
         this.getSideCart()
         .then(sideCart => {
-            cy.wrap(sideCart).find(directory.removeItemButton).should('not.be.visible', {timeout: 1000})
-            cy.wrap(sideCart).find(directory.cartTotalAmount).invoke('text').should('contain', '0.00')
+            cy.wrap(sideCart).find(locators.removeItemButton).should('not.be.visible', {timeout: 1000})
+            cy.wrap(sideCart).find(locators.cartTotalAmount).invoke('text').should('contain', '0.00')
             this.closeSideCart()
         })
     }
 
     validateOnSaleCardLayout(productContainer) {
-        cy.wrap(productContainer).find(directory.onSaleLabel)
+        cy.wrap(productContainer).find(locators.onSaleLabel)
         .should('be.visible')
         .invoke('text')
-        .should('contain', directory.onSaleLabelText)
-        cy.wrap(productContainer).find(directory.priceAmount)
+        .should('contain', locators.onSaleLabelText)
+        cy.wrap(productContainer).find(locators.priceAmount)
         .should('be.visible')
         .and('have.length', 2)
     }
 
     validateProductCardBasicLayout(productContainer) {
-        cy.wrap(productContainer).find(directory.productImage).should('be.visible')
-        cy.wrap(productContainer).find(directory.productName).should('be.visible')
-        cy.wrap(productContainer).find(directory.priceAmount)
+        cy.wrap(productContainer).find(locators.productImage).should('be.visible')
+        cy.wrap(productContainer).find(locators.productName).should('be.visible')
+        cy.wrap(productContainer).find(locators.priceAmount)
         .should('be.visible')
         .and('have.length', 1)
-        cy.wrap(productContainer).find(directory.buttonComponent).should('be.visible')
+        cy.wrap(productContainer).find(locators.buttonComponent).should('be.visible')
     }
 
     validateProductInCart(productInfo) {
         this.getSideCart()
         .then(sideCart => {
-            cy.wrap(sideCart).find(directory.cartProductName).invoke('text').should('contain', productInfo.name)
-            cy.wrap(sideCart).find(directory.cartProductPrice).invoke('text').should('contain', productInfo.price)
-            cy.wrap(sideCart).find(directory.cartTotalAmount).invoke('text').should('contains', productInfo.total)
+            cy.wrap(sideCart).find(locators.cartProductName).invoke('text').should('contain', productInfo.name)
+            cy.wrap(sideCart).find(locators.cartProductPrice).invoke('text').should('contain', productInfo.price)
+            cy.wrap(sideCart).find(locators.cartTotalAmount).invoke('text').should('contains', productInfo.total)
         })
     }
 
     validateSelectedSortingOption(option) {
-        cy.get(directory.sortingDropdown)
+        cy.get(locators.sortingDropdown)
         .should('be.visible')
         .find(':selected')
         .invoke('text')
@@ -193,7 +193,7 @@ class ShopPage extends BasePage {
     }
 
     validateShopBanner() {
-        this.getBannerText().should("eq", directory.bannerText)
+        this.getBannerText().should("eq", locators.bannerText)
     }
 
 }

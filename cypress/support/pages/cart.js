@@ -1,20 +1,20 @@
 import BasePage from './base'
-import directory from './directories/cart'
+import locators from '../locators/cart'
 
 class CartPage extends BasePage {
 
     // *** Actions *** //
     navigateToCartPage() {
-        this.navigateToTab(directory.pageTabs.cart)
+        this.navigateToTab(locators.pageTabs.cart)
     }
 
 
     // *** Validations *** //
     validateCartIsEmpty() {
-        cy.get(directory.emptyCartBanner)
+        cy.get(locators.emptyCartBanner)
         .should('be.visible')
         .invoke('text')
-        .should('contain', directory.emptyCartMessage)
+        .should('contain', locators.emptyCartMessage)
     }
 }
 
