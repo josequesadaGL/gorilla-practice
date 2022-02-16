@@ -47,12 +47,12 @@ pipeline {
   }
   post {
     always {
-      archiveArtifacts artifacts: '**/mochawesome-report/'
+      archiveArtifacts artifacts: 'mochawesome-report/'
       publishHTML (target: [
         allowMissing: false,
         alwaysLinkToLastBuild: false,
         keepAll: true,
-        reportDir: '**/mochawesome-report/',
+        reportDir: 'mochawesome-report',
         reportFiles: 'mochawesome.html',
         reportName: "Build Report"
       ])
