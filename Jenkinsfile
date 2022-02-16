@@ -1,7 +1,12 @@
 pipeline {
   agent any
-  options {
-    skipDefaultCheckout(true)
+  // options {
+  //   skipDefaultCheckout(true)
+  // }
+  environment {
+    CYPRESS_RECORD_KEY = "${CYPRESS_RECORD_KEY}"
+    CYPRESS_PROJECT_ID = "${CYPRESS_PROJECT_ID}"
+    CYPRESS_AUTH_TOKEN = "${CYPRESS_AUTH_TOKEN}"
   }
   stages {
     stage('Checkout') {
@@ -40,15 +45,9 @@ pipeline {
     }
 
   }
-  environment {
-    CYPRESS_RECORD_KEY = "${CYPRESS_RECORD_KEY}"
-    CYPRESS_PROJECT_ID = "${CYPRESS_PROJECT_ID}"
-    CYPRESS_AUTH_TOKEN = "${CYPRESS_AUTH_TOKEN}"
-  }
   post {
     always {
-      echo 'Publishing reports'
-      archiveArtifacts artifacts: '**/mochawesome-report/*'
+      archiveArtifacts artifacts: '**/mochawesome-report/'
       publishHTML (target: [
         allowMissing: false,
         alwaysLinkToLastBuild: false,
