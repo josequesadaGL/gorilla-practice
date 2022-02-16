@@ -21,7 +21,6 @@ pipeline {
       }
     }
     stage('Setup dependencies') {
-      echo("Pull Request: ${env.CHANGE_ID}")
       parallel {
         stage('Validate Chrome setup') {
           steps {
