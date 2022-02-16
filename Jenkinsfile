@@ -34,7 +34,6 @@ pipeline {
   post {
     always {
       echo 'Generating reports'
-      sh 'npm run processReports'
     }
 
     failure {

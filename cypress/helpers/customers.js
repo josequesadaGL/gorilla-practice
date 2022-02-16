@@ -6,21 +6,21 @@ class Customers {
     }
 
     getAllCustomers() {
-        return cy.generateRequest({
+        return cy.generateApiRequest({
             method: 'GET',
             endpoint: this.endpoint,
         })
     }
 
     getCustomerById(customerId) {
-        return cy.generateRequest({
+        return cy.generateApiRequest({
             method: 'GET',
             endpoint: `${this.endpoint}/${customerId}`
         })
     }
 
     createCustomer(bodyRequest){
-        return cy.generateRequest({
+        return cy.generateApiRequest({
             method: 'POST',
             endpoint: this.endpoint,
             body: bodyRequest
@@ -28,7 +28,7 @@ class Customers {
     }
 
     updateCustomer(customerId, bodyRequest) {
-        return cy.generateRequest({
+        return cy.generateApiRequest({
             method: 'PUT',
             endpoint: `${this.endpoint}/${customerId}`,
             body: bodyRequest
@@ -36,7 +36,7 @@ class Customers {
     }
 
     deleteCustomerById(customerId) {
-        return cy.generateRequest({
+        return cy.generateApiRequest({
             method: 'DELETE',
             endpoint: `${this.endpoint}/${customerId}`,
             force: true,
@@ -44,7 +44,7 @@ class Customers {
     }
 
     safeDeleteCustomerById(customerId) {
-        return cy.generateRequest({
+        return cy.generateApiRequest({
             method: 'DELETE',
             endpoint: `${this.endpoint}/${customerId}`,
             negative: true,

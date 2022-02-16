@@ -6,21 +6,21 @@ class Products {
     }
 
     getAllproducts() {
-        return cy.generateRequest({
+        return cy.generateApiRequest({
             method: 'GET',
             endpoint: this.endpoint,
         })
     }
 
     getProductById(productId) {
-        return cy.generateRequest({
+        return cy.generateApiRequest({
             method: 'GET',
             endpoint: `${this.endpoint}/${productId}`
         })
     }
 
     createProduct(bodyRequest){
-        return cy.generateRequest({
+        return cy.generateApiRequest({
             method: 'POST',
             endpoint: this.endpoint,
             body: bodyRequest
@@ -28,7 +28,7 @@ class Products {
     }
 
     createProductReview(productId, bodyRequest){
-        return cy.generateRequest({
+        return cy.generateApiRequest({
             method: 'POST',
             endpoint: this.endpoint,
             endpoint: `${this.endpoint}/${productId}/reviews`,
@@ -37,7 +37,7 @@ class Products {
     }
 
     updateProduct(productId, bodyRequest) {
-        return cy.generateRequest({
+        return cy.generateApiRequest({
             method: 'PUT',
             endpoint: `${this.endpoint}/${productId}`,
             body: bodyRequest
@@ -45,7 +45,7 @@ class Products {
     }
 
     deleteProductById(productId) {
-        return cy.generateRequest({
+        return cy.generateApiRequest({
             method: 'DELETE',
             endpoint: `${this.endpoint}/${productId}`,
             force: {
@@ -55,7 +55,7 @@ class Products {
     }
 
     deleteProductReview(productId, productReviewId){
-        return cy.generateRequest({
+        return cy.generateApiRequest({
             method: 'DELETE',
             endpoint: `${apiEndpoints.products}/${productId}/reviews/${productReviewId}`,
             force: {
@@ -65,7 +65,7 @@ class Products {
     }
 
     safeDeleteProductById(productId) {
-        return cy.generateRequest({
+        return cy.generateApiRequest({
             method: 'DELETE',
             endpoint: `${this.endpoint}/${productId}`,
             negative: true,

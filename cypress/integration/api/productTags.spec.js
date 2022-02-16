@@ -18,7 +18,7 @@ describe("Validating Product Tag endpoint", {tags: 'api'}, () => {
     })
 
     it("Validate Product Tags without required parameters cannot be created - TEST_ID:9", () => {
-        cy.generateRequest({
+        cy.generateApiRequest({
             method: 'POST',
             endpoint: apiEndpoints.productTags,
             negative: true,
@@ -55,7 +55,7 @@ describe("Validating Product Tag endpoint", {tags: 'api'}, () => {
             productTagId = response.body.id
         })
 
-        cy.generateRequest({
+        cy.generateApiRequest({
             method: 'POST',
             endpoint: apiEndpoints.productTags,
             negative: true,
@@ -105,7 +105,7 @@ describe("Validating Product Tag endpoint", {tags: 'api'}, () => {
             })
         })
         .then(()=>{
-            cy.generateRequest({
+            cy.generateApiRequest({
                 method: 'GET',
                 endpoint: `${apiEndpoints.productTags}/${productTagId}`,
                 negative: true

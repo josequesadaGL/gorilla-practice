@@ -6,21 +6,21 @@ class ProductTags {
     }
 
     getAllProductTags() {
-        return cy.generateRequest({
+        return cy.generateApiRequest({
             method: 'GET',
             endpoint: this.endpoint,
         })
     }
 
     getProductTagById(productTagId) {
-        return cy.generateRequest({
+        return cy.generateApiRequest({
             method: 'GET',
             endpoint: `${this.endpoint}/${productTagId}`
         })
     }
 
     createProductTag(bodyRequest){
-        return cy.generateRequest({
+        return cy.generateApiRequest({
             method: 'POST',
             endpoint: this.endpoint,
             body: bodyRequest
@@ -28,7 +28,7 @@ class ProductTags {
     }
 
     updateProductTag(productTagId, bodyRequest) {
-        return cy.generateRequest({
+        return cy.generateApiRequest({
             method: 'PUT',
             endpoint: `${this.endpoint}/${productTagId}`,
             body: bodyRequest
@@ -36,7 +36,7 @@ class ProductTags {
     }
 
     deleteProductTagById(productTagId) {
-        return cy.generateRequest({
+        return cy.generateApiRequest({
             method: 'DELETE',
             endpoint: `${this.endpoint}/${productTagId}`,
             force: {
@@ -46,7 +46,7 @@ class ProductTags {
     }
 
     safeDeleteProductTagsById(productTagId) {
-        return cy.generateRequest({
+        return cy.generateApiRequest({
             method: 'DELETE',
             endpoint: `${this.endpoint}/${productTagId}`,
             negative: true,
