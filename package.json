@@ -67,16 +67,16 @@
     "cleanReports": "npx rimraf cypress/results/* || true && npx rimraf mochawesome-report/* || true",
     "mochawesome:merge": "npx mochawesome-merge \"cypress/results/mochawesome/*.json\" > mochawesome.json && npx marge mochawesome.json",
     "junit:merge": "npx junit-merge -d cypress/results/junit -o cypress/results/junit/result.xml",
-    "report": "npm run mochawesome:merge && npm run junit:merge",
+    "report": "cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json; npm run mochawesome:merge && npm run junit:merge",
 
     "gui": "npx cypress open",
     "dashboard": "npm run chrome --group Chrome --record --parallel && npm run firefox --group Firefox --record --parallel",
 
-    "chrome": "npm run cleanReports && npx cypress run --headless --browser chrome --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json; npm run report",
-    "firefox": "npm run cleanReports && npx cypress run --headless --browser firefox --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json; npm run report",
+    "chrome": "npm run cleanReports && npm run report --headless --browser chrome",
+    "firefox": "npm run cleanReports && npm run report --headless --browser firefox",
 
-    "e2e": "npm run cleanReports && npx cypress run --headless --browser chrome --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json --env grepTags=\"e2e\"; npm run report",
-    "api": "npm run cleanReports && npx cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json --env grepTags=\"api\"; npm run report"
+    "e2e": "npm run cleanReports && npm run report --headless --browser chrome --env grepTags=\"e2e\"; npm run report",
+    "api": "npm run cleanReports && npm run report --env grepTags=\"api\"; npm run report"
   },
   "version": "1.0.0"
 }
