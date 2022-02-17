@@ -1,25 +1,11 @@
 pipeline {
   agent any
-  options {
-    skipDefaultCheckout(true)
-  }
   environment {
     CYPRESS_RECORD_KEY = "${CYPRESS_RECORD_KEY}"
     CYPRESS_PROJECT_ID = "${CYPRESS_PROJECT_ID}"
     CYPRESS_AUTH_TOKEN = "${CYPRESS_AUTH_TOKEN}"
   }
   stages {
-    stage('Checkout') {
-      steps {
-        checkout([
-         $class: 'GitSCM',
-         branches: scm.branches,
-         doGenerateSubmoduleConfigurations: scm.doGenerateSubmoduleConfigurations,
-         extensions: scm.extensions + [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'gorilla-logic']],
-         userRemoteConfigs: scm.userRemoteConfigs
-        ])
-      }
-    }
     stage('Setup dependencies') {
       parallel {
         stage('Validate Chrome setup') {

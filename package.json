@@ -72,11 +72,11 @@
     "gui": "npx cypress open",
     "dashboard": "npm run chrome --group Chrome --record --parallel && npm run firefox --group Firefox --record --parallel",
 
-    "chrome": "npm run cleanReports && npx cypress run --headless --browser chrome; npm run report",
-    "firefox": "npm run cleanReports && npx cypress run --headless --browser firefox; npm run report",
+    "chrome": "npm run cleanReports && npm run report --headless --browser chrome",
+    "firefox": "npm run cleanReports && npm run report --headless --browser firefox",
 
-    "e2e": "npm run cleanReports && npx cypress run --headless --browser chrome --env grepTags=\"e2e\"; npm run report",
-    "api": "npm run cleanReports && npx cypress run --env grepTags=\"api\"; npm run report"
+    "e2e": "npm run cleanReports && npm run report --headless --browser chrome --env grepTags=\"e2e\"",
+    "api": "npm run cleanReports && npm run report --env grepTags=\"api\""
   },
   "version": "1.0.0"
 }
