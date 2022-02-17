@@ -1,6 +1,25 @@
 pipeline {
   agent any
+  options {
+    skipDefaultCheckout(true)
+  }
+  environment {
+    CYPRESS_RECORD_KEY = "${CYPRESS_RECORD_KEY}"
+    CYPRESS_PROJECT_ID = "${CYPRESS_PROJECT_ID}"
+    CYPRESS_AUTH_TOKEN = "${CYPRESS_AUTH_TOKEN}"
+  }
   stages {
+    stage('Checkout') {
+      steps {
+        checkout([
+         $class: 'GitSCM',
+         branches: scm.branches,
+         doGenerateSubmoduleConfigurations: scm.doGenerateSubmoduleConfigurations,
+         extensions: scm.extensions + [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'gorilla-logic']],
+         userRemoteConfigs: scm.userRemoteConfigs
+        ])
+      }
+    }
     stage('Setup dependencies') {
       parallel {
         stage('Validate Chrome setup') {
@@ -26,20 +45,18 @@ pipeline {
     }
 
   }
-  environment {
-    CYPRESS_RECORD_KEY = "${CYPRESS_RECORD_KEY}"
-    CYPRESS_PROJECT_ID = "${CYPRESS_PROJECT_ID}"
-    CYPRESS_AUTH_TOKEN = "${CYPRESS_AUTH_TOKEN}"
-  }
   post {
     always {
-      echo 'Generating reports'
+      archiveArtifacts artifacts: 'mochawesome-report/'
+      publishHTML (target: [
+        allowMissing: false,
+        alwaysLinkToLastBuild: false,
+        keepAll: true,
+        reportDir: 'mochawesome-report',
+        reportFiles: 'mochawesome.html',
+        reportName: "Test Report"
+      ])
     }
-
-    failure {
-      emailext(mimeType: 'text/html', body: '${FILE, path="/mochawesome-report/mochawesome.html"}', subject: 'Build Failed - ${env.BUILD_NUMBER}', to: 'jose.quesada@gorillalogic.com', attachmentsPattern: '**/mochawesome-report/*')
-    }
-
   }
   triggers {
     cron('H/60 * * * *')
