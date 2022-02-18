@@ -1,4 +1,4 @@
-import products from "../../helpers/products"
+import products from "./helpers/products"
 
 describe("Validating Products endpoint", {tags: 'api'}, () => {
     let apiEndpoints, testUser, testProduct, productId

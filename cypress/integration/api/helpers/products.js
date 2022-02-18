@@ -1,4 +1,4 @@
-import * as apiEndpoints from '../fixtures/apiEndpoints.json'
+import * as apiEndpoints from '../../../fixtures/apiEndpoints.json'
 
 class Products {
     constructor() {

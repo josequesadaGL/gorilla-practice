@@ -16,6 +16,10 @@ class ShopPage extends BasePage {
         .find('.purchasable')
     }
 
+    getFirstPurchasableProduct(){
+        return this.getPurchasableProducts().eq(0)
+    }
+
     getOnSaleProducts() {
         return this.getProductGrid()
         .find('.sale')
@@ -35,11 +39,11 @@ class ShopPage extends BasePage {
     }
 
     getProductName(productCard) {
-        return productCard.find(locators.productName).invoke('text')
+        return productCard.find(locators.productName)
     }
 
     getProductPrice(productCard) {
-        return cy.getNumbersFromText(productCard.find(locators.productPrice).invoke('text'))
+        return productCard.find(locators.productPrice)
     }
 
     // Used for on sale products or collections
@@ -83,7 +87,7 @@ class ShopPage extends BasePage {
     }
 
     enterProductDetails(product) {
-        return product.image
+        return this.getProductImage(product)
         .click()
         .wait(1000) // Wait for component transition
     }
