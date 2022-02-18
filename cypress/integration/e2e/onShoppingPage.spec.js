@@ -1,8 +1,9 @@
-import ShopPage from '../../support/pages/shop'
-import locators from '../../support/locators/shop'
-import CartPageLocators from '../../support/locators/cart'
-import CartPage from '../../support/pages/cart'
-import ProductPage from '../../support/pages/product'
+import ShopPage from './pages/shop'
+import locators from './locators/shop'
+import CartPageLocators from './locators/cart'
+import CartPage from './pages/cart'
+import header from './pages/header'
+import sideCart from './pages/sideCart'
 
 describe("UI validations against Shop Page", {tags: 'e2e'}, () => {
     beforeEach(() => {
@@ -10,89 +11,58 @@ describe("UI validations against Shop Page", {tags: 'e2e'}, () => {
     })
 
     it("Validate Site information header and expected components - TEST_ID:1", () => {
-        ShopPage.getHeaderMenu()
-        .then( siteHeader => {
-            cy.wrap(siteHeader).find(locators.siteTitle).should("have.text", "Automation Playground")
-            cy.wrap(siteHeader).find(locators.siteDescription).should("have.text", "Gorilla Logic QA Automation Playground")
-            cy.wrap(siteHeader).find(locators.searchInPageInput).should("be.visible")
-            cy.wrap(siteHeader).find(locators.submitSearchButton).should("be.visible")
-          })
-
-        ShopPage.getNavigationMenu()
-        .then( navBar => {
-            cy.wrap(navBar).find(locators.navigationTab).should('have.length', 5)
-            cy.wrap(navBar).find(locators.navigationTab).eq(locators.pageTabs.shop).invoke('text').should("eq", "Shop")
-            cy.wrap(navBar).find(locators.navigationTab).eq(locators.pageTabs.cart).invoke('text').should("contain", "Cart")
-            cy.wrap(navBar).find(locators.navigationTab).eq(locators.pageTabs.checkoutSub).invoke('text').should("eq", "Checkout")
-            cy.wrap(navBar).find(locators.navigationTab).eq(locators.pageTabs.account).invoke('text').should("eq", "My account")
-            cy.wrap(navBar).find(locators.navigationTab).eq(locators.pageTabs.checkout).invoke('text').should("eq", "Checkout")
-            cy.wrap(navBar).find(locators.userCartButton).should("be.visible")
-            cy.wrap(navBar).find(locators.userActionsDropdown).should("be.visible")
-          })
+        // Validate site header
+        header.getSiteTitle().should("have.text", "Automation Playground")
+        header.getSiteDescription().should("have.text", "Gorilla Logic QA Automation Playground")
+        header.getSearchInPageInput().should("be.visible")
+        header.getSubmitSearchButton().should("be.visible")
+        // Validate navigation components
+        header.getAllNavigationTabs().should('have.length', 5)
+        header.getShopTab().invoke('text').should("eq", "Shop")
+        header.getCartTab().invoke('text').should("contain", "Cart")
+        header.getCheckoutSubmenuTab().invoke('text').should("eq", "Checkout")
+        header.getAccountTab().invoke('text').should("eq", "My account")
+        header.getCheckoutTab().invoke('text').should("eq", "Checkout")
+        header.getUserCartButton().should("be.visible")
+        header.getUserActionsDropdown().should("be.visible")
     })
 
     it("Verify that user can add products to their cart using the Add to Cart button - TEST_ID:2", () => {
-        ShopPage.addFirstPurchasableProductToCart()
-        .then( productInfo =>{
-            ShopPage.getSideCart()
-            .then(sideCart => {
-                cy.wrap(sideCart).find(locators.cartProductName).invoke('text').should('contain', productInfo.name)
-                cy.wrap(sideCart).find(locators.cartProductPrice).invoke('text').should('contain', productInfo.price)
-                cy.wrap(sideCart).find(locators.cartTotalAmount).invoke('text').should('contains', productInfo.total)
-            })
-        })
+        const product = ShopPage.getPurchasableProducts().eq(0)
+        const name = ShopPage.getProductName(product)
+        const price = ShopPage.getProductPrice(product)
+        ShopPage.addProductToCart(product)
+        sideCart.getItemInCartName().should('contain', name)
+        sideCart.getItemInCartPrice().should('contain', price)
+        sideCart.getCartTotal().should('contains', price)
     })
 
     it("Verify that user can add a product to cart multiple times - TEST_ID:3", () => {
-        ShopPage.addFirstPurchasableProductToCart()
-        .then(() => {
-            ShopPage.closeSideCart()
-        })
-        .then(() => {
-            ShopPage.getFirstPurchasableProduct()
-            .then( product => {
-                ShopPage.addProductToCart(product)
-                .then( productInfo =>{
-                    ShopPage.getSideCart()
-                    .then(sideCart => {
-                        cy.wrap(sideCart).find(locators.cartProductName).invoke('text').should('contain', productInfo.name)
-                        cy.wrap(sideCart).find(locators.cartProductPrice).invoke('text').should('contain', productInfo.price)
-                        cy.wrap(sideCart).find(locators.cartTotalAmount).invoke('text').should('contains', productInfo.price * 2)
-                    })
-                })
-            })
-        })
+        const samplePoduct = ShopPage.getPurchasableProducts().eq(0)
+
+        ShopPage.addProductToCart(samplePoduct)
+        sideCart.closeSideCart()
+        ShopPage.addProductToCart(samplePoduct)
+        sideCart.getItemInCartInfo().name.should('contain', productInfo.name)
+        sideCart.getItemInCartInfo().name.should('contain', productInfo.price)
+        sideCart.getCartTotal().should('contains', productInfo.price * 2)
     })
 
     it("Verify that user can remove items from their cart - TEST_ID:4", () => {
         ShopPage.addFirstPurchasableProductToCart()
-        .then(() => {
-            ShopPage.removeProductFromCart()
-        })
-        .then(() => {
-            ShopPage.getSideCart()
-            .then(sideCart => {
-                cy.wrap(sideCart).find(locators.removeItemButton).should('not.be.visible', {timeout: 1000})
-                cy.wrap(sideCart).find(locators.cartTotalAmount).invoke('text').should('contain', '0.00')
-                ShopPage.closeSideCart()
-            })
-        })
-        .then(()=>{
-            CartPage.navigateToCartPage()
-            CartPage.getCartPageBanner()
-            .invoke('text')
-            .should('contain', CartPageLocators.emptyCartMessage)
-        })
+        sideCart.removeProductFromCart()
+        sideCart.getRemoveItemsButton().should('not.be.visible', {timeout: 1000})
+        sideCart.getCartTotal().should('contain', '0.00')
+        sideCart.closeSideCart()
+        CartPage.navigateToCartPage()
+        CartPage.getCartPageEmptyBannerText().should('contain', CartPageLocators.emptyCartMessage)
     })
 
     it("Verify that user can sort products by 'Price high to low' - TEST_ID:5", () => {
         ShopPage.sortGridByPriceDesc()
         cy.reload()
-        .then(()=>{
-            ShopPage.getSortingDropdown()
-            .should('be.visible')
-            .find(':selected')
-            .invoke('text')
+        .then(()=>{// Wait for page to reload
+            ShopPage.getSelectedSortingOption()
             .should('contain', locators.sortingLabels.priceDesc)
         })
     })
@@ -100,11 +70,8 @@ describe("UI validations against Shop Page", {tags: 'e2e'}, () => {
     it("Verify that user can sort products by 'Price low to high' - TEST_ID:6", () => {
         ShopPage.sortGridByPriceAsc()
         cy.reload()
-        .then(()=>{
-            ShopPage.getSortingDropdown()
-            .should('be.visible')
-            .find(':selected')
-            .invoke('text')
+        .then(()=>{// Wait for page to reload
+            ShopPage.getSelectedSortingOption()
             .should('contain', locators.sortingLabels.priceAsc)
         })
     })
@@ -112,54 +79,38 @@ describe("UI validations against Shop Page", {tags: 'e2e'}, () => {
     it("Validate shop pagination shows when products surpass 12 items with default grid view - TEST_ID:7", () => {
         ShopPage.getCurrentPageNumber()
         .should('eq', '1')
-        .then(()=>{
-            ShopPage.nextPageInGrid()
-            .then(()=>{
-                ShopPage.getCurrentPageNumber()
-                .should('eq', '2')
-            })
+        ShopPage.nextPageInGrid()
+        .then(()=>{ // Wait for page update
+            ShopPage.getCurrentPageNumber()
+            .should('eq', '2')
         })
     })
 
     it("Verify basic card layout for any product - TEST_ID:8", () => {
-        ShopPage.getFirstPurchasableProduct()
-        .then (product =>{
-            cy.wrap(product).find(locators.productImage).should('be.visible')
-            cy.wrap(product).find(locators.productName).should('be.visible')
-            cy.wrap(product).find(locators.priceAmount)
-            .should('be.visible')
-            .and('have.length', 1)
-            cy.wrap(product).find(locators.buttonComponent).should('be.visible')
-        }) 
+        const samplePoduct = ShopPage.getPurchasableProducts().eq(0)
+        const productInfo = ShopPage.getProductInfo(samplePoduct)
+        
+        ShopPage.getProductImage(samplePoduct).should('be.visible')
+        productInfo.name.should('be.visible')
+        productInfo.price.should('have.length', 1)
+        ShopPage.getProductCta(samplePoduct).should('be.visible')
     })
 
     it("Verify card layout for products that are On Sale - TEST_ID:9", () => {
-        ShopPage.getFirstOnSaleProduct()
-        .then (product =>{
-            cy.wrap(product).find(locators.onSaleLabel)
-            .should('be.visible')
-            .invoke('text')
-            .should('contain', locators.onSaleLabelText)
-            cy.wrap(product).find(locators.priceAmount)
-            .should('be.visible')
-            .and('have.length', 2)
-        })
+        const samplePoduct = ShopPage.getProductInfo(ShopPage.getOnSaleProducts().eq(0))
+        
+        samplePoduct.sale.should('contain', locators.onSaleLabelText)
+        samplePoduct.priceRange.should('have.length', 2)
     })
 
     it("Verify that user can access a product's details by clicking the product card - TEST_ID:10", () => {
-        ShopPage.getFirstPurchasableProduct()
-        .then (product =>{
-            ShopPage.getProductInfo(product)
-            .then(details =>{
-                const productName = details.name
-                ShopPage.enterProductDetails(product)
-                .then(()=>{
-                    ProductPage.getBannerText()
-                    .should("eq", productName)
-                    ProductPage.getUrl()
-                    .should('include', `/product/${productName.toLowerCase()}`)
-                })
-            })
+        const samplePoduct = ShopPage.getProductInfo(ShopPage.getPurchasableProducts().eq(0))
+        const productName = samplePoduct.name
+        
+        ShopPage.enterProductDetails(samplePoduct)
+        .then(()=>{ // Wait for redirect
+            header.getBannerText().should("eq", productName)
+            header.getUrl().should('include', `/product/${productName.toLowerCase()}`)
         })
     })
 })  

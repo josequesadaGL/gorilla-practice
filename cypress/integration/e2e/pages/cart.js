@@ -4,9 +4,10 @@ import locators from '../locators/cart'
 class CartPage extends BasePage {
 
     // *** Getters *** //
-    getCartPageBanner() {
+    getCartPageEmptyBannerText() {
         return cy.get(locators.emptyCartBanner)
         .should('be.visible')
+        .invoke('text')
     }
 
     // *** Actions *** //

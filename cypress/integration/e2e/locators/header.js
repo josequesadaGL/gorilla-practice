@@ -1,5 +1,6 @@
+import Base from './base'
 
-  export default class Base {
+class Header extends Base{
 
     // Navigation bar
     get navigationContainer () { return '#nav_bar_wrap' }
@@ -23,7 +24,7 @@
     // User actions
     get userCartButton () { return '.cart-contents' }
     get userActionsDropdown () { return '.icofont-user-alt-4' }
-
-    // General use components
-    get buttonComponent () { return '.button' }
+    
   }
+
+  export default new Header();

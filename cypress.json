@@ -5,5 +5,7 @@
     "reporterOptions": {
         "configFile": "reporter-config.json"
     },
-    "extends": "./cypress.env.json"
+    "extends": "./cypress.env.json",
+    "testFiles": "**/*.spec.js",
+    "defaultCommandTimeout": 5000
 }

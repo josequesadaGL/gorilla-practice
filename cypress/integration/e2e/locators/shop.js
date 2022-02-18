@@ -26,14 +26,6 @@ class Shop extends Base{
         priceAsc: 'price: low to high'
     }}
     get sortingDropdown() { return '[name="orderby"]'}
-    // Side Cart
-    get removeItemButton() { return '.wcspc-item-remove'}
-    get cartContainer() { return '#wcspc-area'}
-    get cartLoadingOverlay() { return '.wcspc-area-loading'}
-    get cartProductName() { return '.wcspc-item-title'}
-    get cartProductPrice() { return '.wcspc-item-price'}
-    get cartTotalAmount() { return '#wcspc-subtotal'}
-    get continueShoppingButton() { return '#wcspc-continue'}
     // Pagination
     get paginationContainer() { return '.page-numbers'}
     get paginationButtons() { return '.page-numbers > li'}
