@@ -1,4 +1,4 @@
-import customers from "../../helpers/customers"
+import customers from "./helpers/customers"
 
 describe("Validating Customers endpoint", {tags: 'api'}, () => {
     let apiEndpoints, responseCodes, responseMessages, testUser, customerId, bodyRequest

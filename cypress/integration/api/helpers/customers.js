@@ -1,25 +1,25 @@
-import * as apiEndpoints from '../fixtures/apiEndpoints.json'
+import * as apiEndpoints from '../../../fixtures/apiEndpoints.json'
 
-class ProductTags {
+class Customers {
     constructor() {
-        this.endpoint = apiEndpoints.productTags
+        this.endpoint = apiEndpoints.customers
     }
 
-    getAllProductTags() {
+    getAllCustomers() {
         return cy.generateApiRequest({
             method: 'GET',
             endpoint: this.endpoint,
         })
     }
 
-    getProductTagById(productTagId) {
+    getCustomerById(customerId) {
         return cy.generateApiRequest({
             method: 'GET',
-            endpoint: `${this.endpoint}/${productTagId}`
+            endpoint: `${this.endpoint}/${customerId}`
         })
     }
 
-    createProductTag(bodyRequest){
+    createCustomer(bodyRequest){
         return cy.generateApiRequest({
             method: 'POST',
             endpoint: this.endpoint,
@@ -27,32 +27,30 @@ class ProductTags {
         })
     }
 
-    updateProductTag(productTagId, bodyRequest) {
+    updateCustomer(customerId, bodyRequest) {
         return cy.generateApiRequest({
             method: 'PUT',
-            endpoint: `${this.endpoint}/${productTagId}`,
+            endpoint: `${this.endpoint}/${customerId}`,
             body: bodyRequest
         })
     }
 
-    deleteProductTagById(productTagId) {
+    deleteCustomerById(customerId) {
         return cy.generateApiRequest({
             method: 'DELETE',
-            endpoint: `${this.endpoint}/${productTagId}`,
-            force: {
-              force: true,
-            }
+            endpoint: `${this.endpoint}/${customerId}`,
+            force: true,
         })
     }
 
-    safeDeleteProductTagsById(productTagId) {
+    safeDeleteCustomerById(customerId) {
         return cy.generateApiRequest({
             method: 'DELETE',
-            endpoint: `${this.endpoint}/${productTagId}`,
+            endpoint: `${this.endpoint}/${customerId}`,
             negative: true,
             force: true,
         })
     }
 }
 
-export default new ProductTags()
+export default new Customers()
