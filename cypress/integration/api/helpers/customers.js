@@ -1,56 +1,56 @@
-import * as apiEndpoints from '../../../fixtures/apiEndpoints.json'
+import * as apiEndpoints from '../../../fixtures/apiEndpoints.json';
 
 class Customers {
-    constructor() {
-        this.endpoint = apiEndpoints.customers
-    }
+  constructor() {
+    this.endpoint = apiEndpoints.customers;
+  }
 
-    getAllCustomers() {
-        return cy.generateApiRequest({
-            method: 'GET',
-            endpoint: this.endpoint,
-        })
-    }
+  getAllCustomers() {
+    return cy.generateApiRequest({
+      method: 'GET',
+      endpoint: this.endpoint,
+    });
+  }
 
-    getCustomerById(customerId) {
-        return cy.generateApiRequest({
-            method: 'GET',
-            endpoint: `${this.endpoint}/${customerId}`
-        })
-    }
+  getCustomerById(customerId) {
+    return cy.generateApiRequest({
+      method: 'GET',
+      endpoint: `${this.endpoint}/${customerId}`,
+    });
+  }
 
-    createCustomer(bodyRequest){
-        return cy.generateApiRequest({
-            method: 'POST',
-            endpoint: this.endpoint,
-            body: bodyRequest
-        })
-    }
+  createCustomer(bodyRequest) {
+    return cy.generateApiRequest({
+      method: 'POST',
+      endpoint: this.endpoint,
+      body: bodyRequest,
+    });
+  }
 
-    updateCustomer(customerId, bodyRequest) {
-        return cy.generateApiRequest({
-            method: 'PUT',
-            endpoint: `${this.endpoint}/${customerId}`,
-            body: bodyRequest
-        })
-    }
+  updateCustomer(customerId, bodyRequest) {
+    return cy.generateApiRequest({
+      method: 'PUT',
+      endpoint: `${this.endpoint}/${customerId}`,
+      body: bodyRequest,
+    });
+  }
 
-    deleteCustomerById(customerId) {
-        return cy.generateApiRequest({
-            method: 'DELETE',
-            endpoint: `${this.endpoint}/${customerId}`,
-            force: true,
-        })
-    }
+  deleteCustomerById(customerId) {
+    return cy.generateApiRequest({
+      method: 'DELETE',
+      endpoint: `${this.endpoint}/${customerId}`,
+      force: true,
+    });
+  }
 
-    safeDeleteCustomerById(customerId) {
-        return cy.generateApiRequest({
-            method: 'DELETE',
-            endpoint: `${this.endpoint}/${customerId}`,
-            negative: true,
-            force: true,
-        })
-    }
+  safeDeleteCustomerById(customerId) {
+    return cy.generateApiRequest({
+      method: 'DELETE',
+      endpoint: `${this.endpoint}/${customerId}`,
+      negative: true,
+      force: true,
+    });
+  }
 }
 
-export default new Customers()
+export default new Customers();

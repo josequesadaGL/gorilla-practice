@@ -1,78 +1,75 @@
-import BasePage from './base'
-import locators from '../locators/header'
+import BasePage from './base';
+import locators from '../locators/header';
 
 class Header extends BasePage {
-
-    // *** Getters *** //
+  // *** Getters *** //
   getBannerText() {
     return cy.get(locators.headerBanner)
-    .find(locators.pageTitle)
-    .then( banner => {
-        return banner.text()
-      })
+      .find(locators.pageTitle)
+      .then((banner) => banner.text());
   }
 
-    // *** Actions *** //
+  // *** Actions *** //
   navigateToTab(tabNumber) {
     return cy.get(locators.navigationContainer)
-    .find(locators.navigationTab).eq(tabNumber).click()
+      .find(locators.navigationTab).eq(tabNumber).click();
   }
 
-  getHeaderMenu(){
-    return cy.get(locators.siteHeader)
+  getHeaderMenu() {
+    return cy.get(locators.siteHeader);
   }
 
-  getSiteTitle() { 
-    return this.getHeaderMenu().find(locators.siteTitle)
+  getSiteTitle() {
+    return this.getHeaderMenu().find(locators.siteTitle);
   }
 
   getSiteDescription() {
-    return this.getHeaderMenu().find(locators.siteDescription)
+    return this.getHeaderMenu().find(locators.siteDescription);
   }
 
   getSearchInPageInput() {
-    return this.getHeaderMenu().find(locators.searchInPageInput)
-  }
-  
-  getSubmitSearchButton() {
-    return this.getHeaderMenu().find(locators.submitSearchButton)
+    return this.getHeaderMenu().find(locators.searchInPageInput);
   }
 
-  getNavigationMenu(){
-    return cy.get(locators.navigationContainer)
+  getSubmitSearchButton() {
+    return this.getHeaderMenu().find(locators.submitSearchButton);
+  }
+
+  getNavigationMenu() {
+    return cy.get(locators.navigationContainer);
   }
 
   getAllNavigationTabs() {
-    return this.getNavigationMenu().find(locators.navigationTab)
+    return this.getNavigationMenu().find(locators.navigationTab);
   }
 
-  getShopTab() { 
-    return this.getAllNavigationTabs().eq(locators.pageTabs.shop) 
-  }
-  
-  getCartTab() { 
-    return this.getAllNavigationTabs().eq(locators.pageTabs.cart) 
-  }
-  
-  getCheckoutSubmenuTab() { 
-    return this.getAllNavigationTabs().eq(locators.pageTabs.checkoutSub) 
-  }
-  
-  getAccountTab() { 
-    return this.getAllNavigationTabs().eq(locators.pageTabs.account) 
-  }
-  
-  getCheckoutTab() { 
-    return this.getAllNavigationTabs().eq(locators.pageTabs.checkout) 
+  getShopTab() {
+    return this.getAllNavigationTabs().eq(locators.pageTabs.shop);
   }
 
-  getUserCartButton() { 
-    return this.getNavigationMenu().find(locators.userCartButton)
+  getCartTab() {
+    return this.getAllNavigationTabs().eq(locators.pageTabs.cart);
   }
 
-  getUserActionsDropdown() { 
-    return this.getNavigationMenu().find(locators.userActionsDropdown)
+  getCheckoutSubmenuTab() {
+    return this.getAllNavigationTabs().eq(locators.pageTabs.checkoutSub);
+  }
+
+  getAccountTab() {
+    return this.getAllNavigationTabs().eq(locators.pageTabs.account);
+  }
+
+  getCheckoutTab() {
+    return this.getAllNavigationTabs().eq(locators.pageTabs.checkout);
+  }
+
+  getUserCartButton() {
+    return this.getNavigationMenu().find(locators.userCartButton);
+  }
+
+  getUserActionsDropdown() {
+    return this.getNavigationMenu().find(locators.userActionsDropdown);
   }
 }
 
-export default new Header()
+export default new Header();
