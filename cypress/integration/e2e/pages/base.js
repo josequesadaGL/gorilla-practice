@@ -1,9 +1,8 @@
-import locators from '../locators/header'
+import locators from '../locators/header';
 
 export default class BasePage {
-
-    // *** Getters *** //
+  // *** Getters *** //
   getUrl() {
-    return cy.url()
+    return cy.url();
   }
 }

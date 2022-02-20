@@ -7,16 +7,16 @@
     "cypress": "^9.3.1",
     "rimraf": "3.0.2"
   },
-  "description": "Cypress end-to-end test automation boilerplate. Using ES Modules, Chai and Should.",
+  "description": "Cypress end-to-end test automation. Using ES Modules, Chai and Should.",
   "devDependencies": {
     "cypress-grep": "^2.13.1",
     "cypress-multi-reporters": "^1.5.0",
-    "eslint": "7.32.0",
-    "eslint-config-airbnb-base": "14.2.1",
-    "eslint-config-prettier": "8.3.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-cypress": "2.12.1",
-    "eslint-plugin-import": "2.25.4",
-    "eslint-plugin-prettier": "3.4.1",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-prettier": "^3.4.1",
     "husky": "6.0.0",
     "junit-merge": "^2.0.0",
     "lint-staged": "10.5.4",
@@ -62,19 +62,15 @@
     "url": "git+https://github.com/josequesadaGL/gorilla-practice.git"
   },
   "scripts": {
-    "lint": "npx eslint --ext .js ./ --fix",
-
+    "lint": "eslint --ext .js --fix",
     "cleanReports": "npx rimraf cypress/results/* || true && npx rimraf mochawesome-report/* || true",
     "mochawesome:merge": "npx mochawesome-merge \"cypress/results/mochawesome/*.json\" > mochawesome.json && npx marge mochawesome.json",
     "junit:merge": "npx junit-merge -d cypress/results/junit -o cypress/results/junit/result.xml",
     "report": "cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json; npm run mochawesome:merge && npm run junit:merge",
-
     "gui": "npx cypress open",
     "dashboard": "npm run chrome --group Chrome --record --parallel && npm run firefox --group Firefox --record --parallel",
-
     "chrome": "npm run cleanReports && npm run report --headless --browser chrome",
     "firefox": "npm run cleanReports && npm run report --headless --browser firefox",
-
     "e2e": "npm run cleanReports && npm run report --headless --browser chrome --env grepTags=\"e2e\"",
     "api": "npm run cleanReports && npm run report --env grepTags=\"api\""
   },

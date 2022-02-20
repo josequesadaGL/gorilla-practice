@@ -1,6 +1,6 @@
+export default class Base {
+  // General use components
+  get buttonComponent() { return '.button'; }
 
-  export default class Base {
-    // General use components
-    get buttonComponent () { return '.button' }
-    get dropdownSelectedOption () { return ':selected' }
-  }
+  get dropdownSelectedOption() { return ':selected'; }
+}
