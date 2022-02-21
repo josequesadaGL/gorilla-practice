@@ -1,6 +1,6 @@
 # gorilla-practice
 
-This project runs automated UI and API tests against Gorilla's Automation Playground
+This project runs automated UI and API tests against Gorilla's [Automation Playground](http://3.14.176.40/)
 
 **Tech stack**
 - Javascript
