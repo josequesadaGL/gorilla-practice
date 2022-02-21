@@ -43,6 +43,11 @@ pipeline {
         reportName: "Test Report"
       ])
     }
+      steps {
+        script {
+          System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
+        }
+      }
   }
   triggers {
     cron('H/60 * * * *')
