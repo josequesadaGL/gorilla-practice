@@ -1,8 +1,12 @@
 # gorilla-practice
 
-Tech stack
+This project runs automated UI and API tests against Gorilla's Automation Playground
+
+**Tech stack**
 - Javascript
 - Cypress
+- Mocha
+- Mochawesome
 
 
 # Installation
