@@ -1,4 +1,14 @@
 jenkins:
+  systemMessage: "Setting up Jenkins \n\n"
+  globalNodeProperties:
+  - envVars:
+      env:
+      - key: CYPRESS_RECORD_KEY
+        value: ${CYPRESS_RECORD_KEY}
+      - key: CYPRESS_PROJECT_ID
+        value: ${CYPRESS_PROJECT_ID}
+      - key: CYPRESS_AUTH_TOKEN
+        value: ${CYPRESS_AUTH_TOKEN}
   securityRealm:
     local:
       allowsSignup: false
