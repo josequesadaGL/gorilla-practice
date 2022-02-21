@@ -23,7 +23,6 @@ pipeline {
             sh 'npm install -y'
           }
         }
-
       }
     }
     stage('Run automated tests') {
