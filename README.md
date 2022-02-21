@@ -17,7 +17,7 @@ npm install
 ```
 
 # Running
-There are several options to run cypress:
+There are several options to run the automated tests:
 
 Cypress local dashboard
 ```
