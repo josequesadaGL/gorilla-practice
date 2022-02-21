@@ -13,23 +13,19 @@ pipeline {
             sh 'google-chrome --version'
           }
         }
-
         stage('Setup Cypress environment') {
           steps {
             sh 'npm install -y'
           }
         }
-
       }
     }
-
     stage('Run automated tests') {
       steps {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
         sh "npm run chrome --record false --ci-build-id ${env.BUILD_ID}"
       }
     }
-
   }
   post {
     always {
@@ -42,9 +38,6 @@ pipeline {
         reportFiles: 'mochawesome.html',
         reportName: "Test Report"
       ])
-      script {
-        System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
-      }
     }
   }
   triggers {
