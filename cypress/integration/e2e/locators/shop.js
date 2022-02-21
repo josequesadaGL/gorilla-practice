@@ -23,6 +23,12 @@ class Shop extends Base {
 
   get onSaleLabelText() { return 'Sale!'; }
 
+  get purchasableAtribute() { return '.purchasable'; }
+
+  get saleAttribute() { return '.sale'; }
+
+  get currentlySelectedAttribute() { return '.current'; }
+
   // Sorting
   get sortingOptions() {
     return {

@@ -1,0 +1,32 @@
+jenkins:
+  systemMessage: "Setting up Jenkins \n\n"
+  globalNodeProperties:
+  - envVars:
+      env:
+      - key: CYPRESS_RECORD_KEY
+        value: ${CYPRESS_RECORD_KEY}
+      - key: CYPRESS_PROJECT_ID
+        value: ${CYPRESS_PROJECT_ID}
+      - key: CYPRESS_AUTH_TOKEN
+        value: ${CYPRESS_AUTH_TOKEN}
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+       - id: ${JENKINS_ADMIN_ID}
+         password: ${JENKINS_ADMIN_PASSWORD}
+  authorizationStrategy:
+    globalMatrix:
+      permissions:
+        - "Overall/Administer:admin"
+        - "Overall/Read:authenticated"
+  remotingSecurity:
+    enabled: true
+security:
+  queueItemAuthenticator:
+    authenticators:
+    - global:
+        strategy: triggeringUsersAuthorizationStrategy
+unclassified:
+  location:
+    url: ${JENKINS_SERVER_URL}

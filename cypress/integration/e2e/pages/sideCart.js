@@ -12,28 +12,11 @@ class SideCart extends BasePage {
   }
 
   getContinueShoppingButton() {
-    return this.getSideCart()
-      .find(locators.continueShoppingButton);
-  }
-
-  getItemInCartName() {
-    return this.getSideCart()
-      .find(locators.cartProductName).invoke('text');
-  }
-
-  getItemInCartPrice() {
-    return this.getSideCart()
-      .find(locators.cartProductPrice).invoke('text');
-  }
-
-  getCartTotal() {
-    return this.getSideCart()
-      .find(locators.cartTotalAmount).invoke('text');
+    return this.getSideCart().find(locators.continueShoppingButton);
   }
 
   getRemoveItemsButton() {
-    return this.getSideCart()
-      .find(locators.removeItemButton);
+    return this.getSideCart().find(locators.removeItemButton);
   }
 
   // *** Actions *** //
@@ -43,9 +26,20 @@ class SideCart extends BasePage {
         cy.get(locators.cartContainer).should('not.be.visible'));
   }
 
+  getItemInCartName(numberInList = 0) {
+    return this.getSideCart().find(locators.cartProductName).eq(numberInList).invoke('text');
+  }
+
+  getItemInCartPrice(numberInList = 0) {
+    return this.getSideCart().find(locators.cartProductPrice).eq(numberInList).invoke('text');
+  }
+
+  getCartTotal() {
+    return this.getSideCart().find(locators.cartTotalAmount).invoke('text');
+  }
+
   removeProductsFromCart() {
-    return this.getRemoveItemsButton()
-      .click()
+    return this.getRemoveItemsButton().click()
       .wait(1000); // waits for component transition
   }
 

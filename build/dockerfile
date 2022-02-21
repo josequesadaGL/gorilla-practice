@@ -1,0 +1,48 @@
+FROM jenkins/jenkins:2.332
+
+USER root
+
+# Setup Jenkins
+COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
+COPY casc.yml /var/jenkins_home/casc.yml
+RUN  /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
+ENV CASC_JENKINS_CONFIG /var/jenkins_home/casc.yml
+
+RUN uname -a && cat /etc/*release
+
+# Enable docker-in-docker
+RUN curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
+
+RUN apt-get update \
+      && apt-get install -y sudo \
+      && rm -rf /var/lib/apt/lists/*
+
+RUN usermod -a -G root jenkins
+RUN usermod -aG docker jenkins
+
+# Install required packages
+RUN apt update && \
+apt install git -y && \
+apt install -y wget && \
+apt install -y npm && \
+# Node 17 (current) has a bug with Node options not allowing OpenSSL
+# Unsetting Node_options fixes this
+unset NODE_OPTIONS && \
+# Install Google Chrome
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+apt install -y ./google-chrome-stable_current_amd64.deb && \
+# Cypress dependencies
+apt-get install -y \
+      libgtk2.0-0 \
+      libgtk-3-0 \
+      libgbm-dev \
+      libnotify-dev \
+      libgconf-2-4 \
+      libnss3 libxss1 \
+      libasound2 \
+      libxtst6 \
+      xauth \
+      xvfb
+
+# Switch back to the jenkins user.
+USER jenkins

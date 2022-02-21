@@ -3,16 +3,10 @@ import locators from '../locators/shop';
 import sideCart from './sideCart';
 
 class ShopPage extends BasePage {
-  // *** Getters *** //
-  getCurrentPageNumber() {
-    return cy.get(locators.paginationContainer)
-      .find('.current')
-      .invoke('text');
-  }
 
+  // *** Getters *** //
   getPurchasableProducts() {
-    return this.getProductGrid()
-      .find('.purchasable');
+    return this.getProductGrid().find(locators.purchasableAtribute);
   }
 
   getFirstPurchasableProduct() {
@@ -20,8 +14,7 @@ class ShopPage extends BasePage {
   }
 
   getOnSaleProducts() {
-    return this.getProductGrid()
-      .find('.sale');
+    return this.getProductGrid().find(locators.saleAttribute);
   }
 
   getProductGrid() {
@@ -54,16 +47,6 @@ class ShopPage extends BasePage {
     return productCard.find(locators.buttonComponent);
   }
 
-  getProductSaleLabel(productCard) {
-    return productCard.find(locators.onSaleLabel)?.invoke('text');
-  }
-
-  getSelectedSortingOption() {
-    return this.getSortingDropdown()
-      .find(locators.dropdownSelectedOption)
-      .invoke('text');
-  }
-
   getSortingDropdown() {
     return cy.get(locators.sortingDropdown);
   }
@@ -71,8 +54,7 @@ class ShopPage extends BasePage {
   // *** Actions *** //
   addFirstPurchasableProductToCart() {
     return this.addProductToCart(
-      this.getPurchasableProducts()
-        .eq(0),
+      this.getPurchasableProducts().eq(0),
     );
   }
 
@@ -84,15 +66,23 @@ class ShopPage extends BasePage {
   }
 
   enterProductDetails(product) {
-    return this.getProductImage(product)
-      .click()
-      .wait(1000); // Wait for component transition
+    return this.getProductImage(product).click()
+  }
+
+  getCurrentPageNumber() {
+    return cy.get(locators.paginationContainer).find(locators.currentlySelectedAttribute).invoke('text');
+  }
+
+  getProductSaleLabel(productCard) {
+    return productCard.find(locators.onSaleLabel)?.invoke('text');
+  }
+
+  getSelectedSortingOption() {
+    return this.getSortingDropdown().find(locators.dropdownSelectedOption).invoke('text');
   }
 
   nextPageInGrid() {
-    return cy.get(locators.paginationButtons)
-      .eq(-1)
-      .click();
+    return cy.get(locators.paginationButtons).eq(-1).click();
   }
 
   sortGridByPriceAsc() {
@@ -104,9 +94,8 @@ class ShopPage extends BasePage {
   }
 
   sortProductGrid(option) {
-    return cy.get(locators.sortingDropdown)
-      .select(option)
-      .wait(1000);// wait for transition
+    return cy.get(locators.sortingDropdown).select(option)
+    .wait(1000) // wait for transition
   }
 }
 

@@ -9,12 +9,6 @@ class Header extends BasePage {
       .then((banner) => banner.text());
   }
 
-  // *** Actions *** //
-  navigateToTab(tabNumber) {
-    return cy.get(locators.navigationContainer)
-      .find(locators.navigationTab).eq(tabNumber).click();
-  }
-
   getHeaderMenu() {
     return cy.get(locators.siteHeader);
   }
@@ -69,6 +63,11 @@ class Header extends BasePage {
 
   getUserActionsDropdown() {
     return this.getNavigationMenu().find(locators.userActionsDropdown);
+  }
+
+  // *** Actions *** //
+  navigateToTab(tabNumber) {
+    return cy.get(locators.navigationContainer).find(locators.navigationTab).eq(tabNumber).click();
   }
 }
 

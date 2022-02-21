@@ -6,6 +6,11 @@ pipeline {
     CYPRESS_AUTH_TOKEN = "${env.CYPRESS_AUTH_TOKEN}"
   }
   stages {
+    stage('Clean reports') {
+      steps {
+        sh "npm run cleanReports"
+      }
+    }
     stage('Setup dependencies') {
       parallel {
         stage('Validate Chrome setup') {
@@ -24,6 +29,11 @@ pipeline {
       steps {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
         sh "npm run chrome --record false --ci-build-id ${env.BUILD_ID}"
+      }
+    }
+    stage('Process reports') {
+      steps {
+        sh "npm run processReports"
       }
     }
   }

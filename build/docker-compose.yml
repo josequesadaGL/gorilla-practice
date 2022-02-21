@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  jenkins:
+    image: jenkins/jenkins:2.334
+    user: root
+    environment:
+      JAVA_OPTS: -Djenkins.install.runSetupWizard=false
+      CYPRESS_RECORD_KEY: 'cypress-dashboard-key'
+      CYPRESS_PROJECT_ID: 'cypress-project-id'
+      CYPRESS_AUTH_TOKEN: 'auth-token'
+      JENKINS_ADMIN_ID: username
+      JENKINS_ADMIN_PASSWORD: password
+      JENKINS_SERVER_URL: http://localhost:9090/
+    ports:
+      - "9090:8080"
+      - "50000:50000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/jenkins_home
+    storage_opt:
+      size: '3G'
+    build:
+      context: .
+      dockerfile: dockerfile

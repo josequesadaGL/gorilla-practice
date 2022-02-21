@@ -28,7 +28,7 @@ describe('UI validations against Shop Page', { tags: 'e2e' }, () => {
   });
 
   it('Verify that user can add products to their cart using the Add to Cart button - TEST_ID:2', () => {
-    let name; 
+    let name;
     let price;
 
     ShopPage.getProductName(ShopPage.getFirstPurchasableProduct())
@@ -45,8 +45,8 @@ describe('UI validations against Shop Page', { tags: 'e2e' }, () => {
   });
 
   it('Verify that user can add a product to cart multiple times - TEST_ID:3', () => {
-    let name; let
-      price;
+    let name;
+    let price;
 
     ShopPage.getProductName(ShopPage.getFirstPurchasableProduct())
       .then((value) => { name = value.text(); });

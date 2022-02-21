@@ -6,8 +6,7 @@ class Header extends Base {
 
   get navigationTab() { return '.menu-item'; }
 
-  get pageTabs() {
-    return {
+  get pageTabs() { return {
       shop: 0,
       cart: 1,
       checkoutSub: 2,
