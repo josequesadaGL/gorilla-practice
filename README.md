@@ -13,9 +13,39 @@ npm install
 ```
 
 # Running
+There are several options to run cypress:
+
+Cypress local dashboard
 ```
-npm run cypress:test
+npm run gui
 ```
+
+Cypress dashboard - runs browsers in parallel
+```
+npm run dashboard
+```
+
+Run Cypress only on Chrome
+```
+npm run chrome
+```
+
+Run Cypress only on Firefox
+```
+npm run firefox
+```
+
+Run only UI tests
+```
+npm run e2e
+```
+
+
+Run only API tests
+```
+npm run api
+```
+
 
 # Reports
 After each run, the automation framework will create a series of reporting data:
