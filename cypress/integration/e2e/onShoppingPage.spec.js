@@ -10,13 +10,14 @@ describe('UI validations against Shop Page', { tags: 'e2e' }, () => {
     cy.openHomePage();
   });
 
-  it('Validate Site information header and expected components - TEST_ID:1', () => {
-    // Validate site header
+  it('Validate Site information header - TEST_ID:1', () => {
     header.getSiteTitle().should('have.text', 'Automation Playground');
     header.getSiteDescription().should('have.text', 'Gorilla Logic QA Automation Playground');
     header.getSearchInPageInput().should('be.visible');
     header.getSubmitSearchButton().should('be.visible');
-    // Validate navigation components
+  });
+
+  it('Validate Site navigation components - TEST_ID:1', () => {
     header.getAllNavigationTabs().should('have.length', 5);
     header.getShopTab().invoke('text').should('eq', 'Shop');
     header.getCartTab().invoke('text').should('contain', 'Cart');
@@ -28,8 +29,7 @@ describe('UI validations against Shop Page', { tags: 'e2e' }, () => {
   });
 
   it('Verify that user can add products to their cart using the Add to Cart button - TEST_ID:2', () => {
-    let name;
-    let price;
+    let name; let price;
 
     ShopPage.getProductName(ShopPage.getFirstPurchasableProduct())
       .then((value) => { name = value.text(); });
@@ -45,8 +45,7 @@ describe('UI validations against Shop Page', { tags: 'e2e' }, () => {
   });
 
   it('Verify that user can add a product to cart multiple times - TEST_ID:3', () => {
-    let name;
-    let price;
+    let name; let price;
 
     ShopPage.getProductName(ShopPage.getFirstPurchasableProduct())
       .then((value) => { name = value.text(); });
