@@ -59,16 +59,19 @@ describe('Validating Products endpoint - prerequisites', { tags: 'api' }, () => 
 });
 
 describe('Validating Products endpoint - independent', { tags: 'api' }, () => {
+  after(() => {
+    products.safeDeleteProductById(productId);
+  });
+
   it('Validate create products with required parameters - TEST_ID:8', () => {
     products.createProduct()
       .then((response) => {
         expect(response.status).to.equal(201);
+        productId = response.body.id;
         expect(response.body.id).to.be.a('number');
         expect(response.body.name).to.equal(testProduct.name);
         expect(response.body.slug).to.contain(testProduct.slug);
         expect(response.body.permalink).to.contain(testProduct.slug);
-
-        products.safeDeleteProductById(response.body.id);
       });
   });
 });
