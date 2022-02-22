@@ -78,6 +78,9 @@ describe('Validating Product Tag endpoint', { tags: 'api' }, () => {
 });
 
 describe('Validating Products endpoint - independent', { tags: 'api' }, () => {
+  afterEach(() => {
+    productTags.safeDeleteProductTagsById(productTagId);
+  });
 
   it('Validate Product Tags without required parameters cannot be created - TEST_ID:9', () => {
     cy.generateApiRequest({
@@ -96,12 +99,11 @@ describe('Validating Products endpoint - independent', { tags: 'api' }, () => {
     productTags.createProductTag(bodyRequest)
       .then((response) => {
         expect(response.status).to.equal(201);
+        productTagId = response.body.id
         expect(response.body.id).to.be.a('number');
         expect(response.body.description).to.be.a('string');
         expect(response.body.name).to.equal(testProduct.tag);
         expect(response.body.slug).to.equal(testProduct.tag);
-
-        productTags.safeDeleteProductTagsById(response.body.id);
       });
   });
 });
